@@ -98,4 +98,4 @@ jobs:
         # uses: alesil/actions-curl@3bdc94d2e231b65cfafd795a820f99890b0603f6
         uses: enflo/curl-action@v1.2
         with: 
-          curl: -X POST https://122.155.186.154:9443/api/webhooks/0e3cb34b-8b89-4daf-b569-292ec3f09b65
+          curl: -k -X POST https://122.155.186.154:9443/api/webhooks/0e3cb34b-8b89-4daf-b569-292ec3f09b65
