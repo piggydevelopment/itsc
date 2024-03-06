@@ -27,7 +27,7 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": "https://corp.synzofficial.com",
+  "start_url": "https://corp.synzofficial.com/home",
   "display": "standalone",
   "theme_color": "#461e99",
   "background_color": "#461e99",
@@ -39,17 +39,5 @@
     "health",
     "lifestyle",
     "medical"
-  ],
-  "screenshots": [
-    {
-      "src": "screenshots/1280x800-screenshot.png",
-      "sizes": "1280x800",
-      "type": "image/png"
-    },
-    {
-      "src": "screenshots/750x1334-screenshot.png",
-      "sizes": "750x1334",
-      "type": "image/png"
-    }
   ]
 }
