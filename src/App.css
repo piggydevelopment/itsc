@@ -1,0 +1,185 @@
+body{
+  background-color: #282c34;
+  font-family: "Noto Sans Thai"  !important;
+}
+
+.App {
+  text-align: center;
+  font-family: "Noto Sans Thai";
+  
+}
+.NotoSansThai{
+  font-family: "Noto Sans Thai";
+}
+.css-imwso6-MuiBottomNavigationAction-label,
+.css-ahj2mt-MuiTypography-root{
+  font-family: "Noto Sans Thai";
+  color: #2C2C2C;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.text-center{
+  text-align: center;
+}
+.MuiOtpInput-Box .MuiInputBase-input{
+  height: 60px;
+  width: 40px;
+  font-size: 28px;
+  font-weight: bold;
+  background:  #F6F6F6;
+}
+.fw-600{
+  font-weight: 600;
+}
+
+.texts1{
+  color:  #2C2C2C;
+  font-family: "Noto Sans Thai";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  text-indent: 20px;
+}
+.imgslide{
+  width: 100%;
+  border-radius: 12px;
+}
+.ts2{
+  color:  #2C2C2C;
+  font-family: "Noto Sans Thai";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 133.333% */
+}
+.ts-1{
+  color: var(--Base-DefaultText, #2C2C2C);
+  font-family: "Noto Sans Thai";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+}
+.ts-3{
+  color: var(--Base-Gray60, #656565);
+font-family: "Noto Sans Thai";
+font-size: 14.218px;
+font-style: normal;
+font-weight: 400;
+line-height: 21.327px; /* 150% */
+}
+.experimgcard{
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  aspect-ratio: 1.14;
+  object-fit: cover;
+}
+
+.cardcontent{
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.splide__slide .MuiCard-root{
+  transform: scale(.9);
+}
+.splide__slide.is-active .MuiCard-root{
+  transform: scale(1);
+}
+.splide__pagination {
+  bottom: -1.5em  !important;
+
+}
+.css-1bjk3jo-MuiButtonBase-root-MuiBottomNavigationAction-root.Mui-selected {
+  color: #461e99;
+}
+.tag{
+  color: var(--Purple-Purple100, #461E99);
+  text-align: center;
+
+  /* Regular/H4-13px */
+  font-family: "Noto Sans Thai";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 18px;
+  background: var(--Base-White, #FFF);
+  display: flex;
+  padding: 7px 16px;
+  align-items: center;
+  margin-bottom: 4px;
+  margin-right: 10px;
+ 
+
+}
+.me-2{
+  margin-right: 7px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+#content{
+  max-width: 567px;
+  background-color: #FFF;
+  min-height: 100vh;
+  margin: 0 auto;
+  width: 100%;
+}
+.bg-login{
+  background-image: url(../public/images/bg.png);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+
+.css-9emuhu-MuiPaper-root-MuiDrawer-paper{
+  background-color: transparent;
+
+}
+
+.bxbot{
+  background-color: #FFF;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  max-width: 567px;
+  margin: 0 auto;
+  width: 100%;
+  
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@media screen and (min-width: 567px) {
+  .css-9emuhu-MuiPaper-root-MuiDrawer-paper{
+    background-color: transparent;
+    padding-right: 20px;
+  }
+}

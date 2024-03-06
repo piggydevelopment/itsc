@@ -1,0 +1,74 @@
+/* prompt-100 - latin_thai */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 100;
+    src: url('assets/fonts/NotoSansThai/NotoSansThai-Thin.ttf') format('ttf'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+  /* prompt-200 - latin_thai */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 200;
+    src: url('assets/fonts/NotoSansThai/NotoSansThai-ExtraLight.ttf') format('ttf'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+  /* prompt-300 - latin_thai */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 300;
+    src: url('assets/fonts/NotoSansThai/NotoSansThai-Light.ttf') format('ttf'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 400;
+    src: url('assets/fonts/NotoSansThai/NotoSansThai-Regular.ttf') format('ttf'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 500;
+    src: url('assets/fonts/NotoSansThai/prompt-v10-latin_thai-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 600;
+    src: url('assets/fonts/NotoSansThai/prompt-v10-latin_thai-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 700;
+    src: url('assets/fonts/NotoSansThai/prompt-v10-latin_thai-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 800;
+    src: url('assets/fonts/NotoSansThai/prompt-v10-latin_thai-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
+
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Noto Sans Thai';
+    font-style: normal;
+    font-weight: 900;
+    src: url('assets/fonts/NotoSansThai/prompt-v10-latin_thai-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  }
