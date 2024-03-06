@@ -24,15 +24,15 @@ export function LayoutBottomNav() {
 
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 ,maxWidth:'567px',m:'0 auto' }} elevation={3}>
                 <BottomNavigation
-                showLabels
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
+                    showLabels
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue(newValue);
+                    }}
                 >
-                <BottomNavigationAction  component={Link} to="/history" label="ประวัติ" icon={<HistorySharpIcon />} />
-                <BottomNavigationAction  component={Link} to="/"   label="หน้าหลัก" icon={<HomeSharpIcon />} />
-                <BottomNavigationAction  component={Link} to="/account"  label="บัญชี" icon={<PersonOutlineOutlinedIcon />} />
+                    <BottomNavigationAction  component={Link} to="/"   label="หน้าหลัก" icon={<HomeSharpIcon />} />
+                    <BottomNavigationAction  component={Link} to="/history" label="ประวัติ" icon={<HistorySharpIcon />} />
+                    <BottomNavigationAction  component={Link} to="/account"  label="บัญชี" icon={<PersonOutlineOutlinedIcon />} />
                 </BottomNavigation>
             </Paper>
         </Box>

@@ -19,6 +19,17 @@ import {
   } from "react-router-dom";
 
 export function HomePage() {
+    const getUserInfo = async () => {
+        const response = await fetch('/api/user');
+        const data = await response.json();
+        console.log(data);
+    }
+
+    useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    
 
     const [value, setValue] = React.useState(0);
     return (
