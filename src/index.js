@@ -8,12 +8,6 @@ import { BrowserRouter } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material";
 
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js');
-  });
-}
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/images/logo3.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="%PUBLIC_URL%/images/apple-icon-180.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#461e99" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Synz application for corporate."
     />
 
     <!--
@@ -39,5 +39,8 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      if ( "serviceWorker" in navigator ) { navigator.serviceWorker.register( "/serviceworker.js" ); }
+    </script>
   </body>
 </html>
