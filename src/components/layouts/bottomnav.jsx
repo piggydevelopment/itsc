@@ -18,7 +18,7 @@ import {
 export function LayoutBottomNav() {
     const [value, setValue] = React.useState(0);
     return (
-        <Box sx={{backgroundColor:'#F6F6F6',paddingBottom:'80px'}}>
+        <Box sx={{backgroundColor:'#F6F6F6',paddingBottom:'84px'}}>
 
             <Outlet />
 
@@ -26,11 +26,14 @@ export function LayoutBottomNav() {
                 <BottomNavigation
                     showLabels
                     value={value}
+                    sx={{
+                        height: '84px'
+                    }}
                     onChange={(event, newValue) => {
                         setValue(newValue);
                     }}
                 >
-                    <BottomNavigationAction  component={Link} to="/"   label="หน้าหลัก" icon={<HomeSharpIcon />} />
+                    <BottomNavigationAction  component={Link} to="/home"   label="หน้าหลัก" icon={<HomeSharpIcon />} />
                     <BottomNavigationAction  component={Link} to="/history" label="ประวัติ" icon={<HistorySharpIcon />} />
                     <BottomNavigationAction  component={Link} to="/account"  label="บัญชี" icon={<PersonOutlineOutlinedIcon />} />
                 </BottomNavigation>

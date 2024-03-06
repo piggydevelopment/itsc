@@ -36,9 +36,11 @@ export function HomePage() {
         <Box sx={{backgroundColor:'#F6F6F6'}}>
 
             <Box sx={{p:3}}>
-                <img src='images/logo2.png' />
-                <div style={{marginBottom:'20px'}}>
-                    สุขภาพใจของเธอให้  <span style={{color: '#461E99'}}>SynZ</span> ดูแลนะ
+                <div style={{marginBottom:'10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center'}}>
+                    <img src='images/logo.png' style={{ height: '64px' }}/>
+                    <div style={{marginLeft: '10px'}}>
+                        สุขภาพใจของเธอให้  <span style={{color: '#461E99'}}>SynZ</span> ดูแลนะ
+                    </div>
                 </div>
 
                 <Splide
