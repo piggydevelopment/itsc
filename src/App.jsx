@@ -40,7 +40,8 @@ function App() {
         <Route path="/question" element={<QuestionPage />} />
 
         <Route path="/" element={<LayoutBottomNav />}>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<LoadPage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/account" element={<AccountPage />} />
         </Route>
