@@ -29,22 +29,6 @@ export function AccountPage() {
     };
     return (
         <Box sx={{backgroundColor:'#FFF',paddingBottom:'80px'}}>
-            <AppBar position="relative" sx={{backgroundColor:'#FFF',color:'#000',boxShadow:'unset',paddingTop:'10px'}}>
-                <Toolbar>
-                    <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ mr: 2,position:"absolute" }}
-                    component={Link} to="/"
-                    >
-                    <ArrowBackIosNewOutlinedIcon />
-                    </IconButton>
-                    <Typography  className='NotoSansThai' component="div" sx={{ flexGrow: 1,textAlign:'center',fontWeight:600,fontSize:18 }}>
-                        บัญชี
-                    </Typography>
-                </Toolbar>
-            </AppBar>
 
             <Box
                 component="form"
@@ -72,6 +56,12 @@ export function AccountPage() {
                         label="อีเมล*"
                         variant="standard"
                         value={"sample@gmail.com"}
+                    />
+                    <TextField
+                        id=""
+                        label="เบอร์โทร*"
+                        variant="standard"
+                        value={"+66 123 456 789"}
                     />
     
                     <Button 
