@@ -4,13 +4,14 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
+// import sendEmail from '../../libs/smtp';
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import Typography from '@mui/material/Typography';
 import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 
-export function OtpPage() {
+export function OtpPage(props) {
 
+    const [userEmail] = props;
 
     const [otp, setOtp] = React.useState('')
 
@@ -27,6 +28,7 @@ export function OtpPage() {
       console.log(otp)
       
     };
+    
 
 
     return (
