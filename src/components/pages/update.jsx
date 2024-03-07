@@ -37,7 +37,7 @@ export function UpdatePage() {
                     color="inherit"
                     aria-label="menu"
                     sx={{ mr: 2,position:"absolute" }}
-                    component={Link} to="/"
+                    component={Link} to="/home"
                     >
                     <ArrowBackIosNewOutlinedIcon />
                     </IconButton>
@@ -73,6 +73,12 @@ export function UpdatePage() {
                         label="อีเมล*"
                         variant="standard"
                         value={"sample@gmail.com"}
+                    />
+                    <TextField
+                        id=""
+                        label="เบอร์โทร*"
+                        variant="standard"
+                        value={"+66 123 456 789"}
                     />
     
                     <Button 
