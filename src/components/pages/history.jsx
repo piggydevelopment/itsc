@@ -9,8 +9,9 @@ import Avatar from '@mui/material/Avatar';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CheckSharpIcon from '@mui/icons-material/CheckSharp';
 import TimerSharpIcon from '@mui/icons-material/TimerSharp';
-
-
+import Button from '@mui/material/Button';
+// import Link
+import { Link } from 'react-router-dom';
 export function HistoryPage() {
 
     const [value, setValue] = React.useState(0);
@@ -31,9 +32,12 @@ export function HistoryPage() {
                             24 ก.ย. 66  12.00 น.
                         </Typography>
                     </Stack>
-                    <Typography  className='NotoSansThai' mb={1}  component="div"  sx={{fontSize:14,color:'#656565' }}>
-                        หมายเลขนัดหมาย: 12345
-                    </Typography>
+                    <Stack spacing={2} mb={2} direction="column" alignItems="center" justifyContent="space-between">
+                        <Typography  className='NotoSansThai' mb={1}  component="div"  sx={{fontSize:14,color:'#656565',marginTop: '10px' }}>
+                            หมายเลขนัดหมาย: 12345
+                        </Typography>
+                    </Stack>
+                    
                 </Stack>
                 <Stack spacing={2} mb={2} direction="row" alignItems="start">
                     <Avatar
@@ -90,19 +94,21 @@ export function HistoryPage() {
                             จอง
                             </Typography>
                         </Stack>
-        
+                        
                     </div>
                 </Stack>
                 
             </Box>
             <Box sx={{px:3,pt:2,pb:2,backgroundColor:'#FFF'}} mb={1} >
-                <Stack spacing={2} mb={2} direction="row" alignItems="center" justifyContent="space-between">
+                <Stack spacing={2} mb={2} direction="row" alignItems="center" justifyContent="space-between" sx={{alignItems:"flexStart"}}>
+
                     <Stack spacing={2} mb={3} direction="row" alignItems="center" sx={{color:'#461E99'}}>
                         <CalendarMonthIcon />
                         <Typography  className='NotoSansThai'  component="div"  sx={{ fontWeight:600,fontSize:16,paddingTop:'4px' }}>
                             24 ก.ย. 66  12.00 น.
                         </Typography>
                     </Stack>
+
                     <Typography  className='NotoSansThai' mb={1}  component="div"  sx={{fontSize:14,color:'#656565' }}>
                         หมายเลขนัดหมาย: 12345
                     </Typography>
@@ -128,6 +134,22 @@ export function HistoryPage() {
                         </Stack>
         
                     </div>
+                    <Stack spacing={2} direction="row" alignItems="center" sx={{flex: 1, justifyContent:'flex-end', }}>
+                        <Button 
+                            variant="contained"  
+                            component={Link} to="/appointment/2"
+                            fullWidth
+                            className='NotoSansThai'
+                            sx={{ 
+                                borderRadius: 30 ,
+                                backgroundColor:'#461E99',
+                                padding:'7px 32px',
+                                fontSize:'16px',
+                                marginTop:'10px',
+                                width: '50%',
+                            }}
+                        >เข้าห้อง </Button>
+                    </Stack>
                 </Stack>
                 
             </Box>

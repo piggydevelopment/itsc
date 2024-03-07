@@ -5,9 +5,13 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import {
+  BrowserRouter as Router,
+  useNavigate 
+} from "react-router-dom";
 export function LoginPage() {
-
-    const [email, setEmail] = useState("");
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("test@abc.com");
     const [error, setError] = useState(false);
 
     const handleChange = e => {
@@ -23,11 +27,13 @@ export function LoginPage() {
       e.preventDefault();
       if (e.target.checkValidity()) {
         setError(false);
+        // redirect to /otp page with props email
+        navigate('/otp', { state: { userEmail: email } });
       } else {
         setError(true);
       }
-      console.log(email)
     };
+
 
     return (
       <Box

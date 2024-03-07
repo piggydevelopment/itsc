@@ -17,59 +17,45 @@ import {
     Outlet,
     useParams 
   } from "react-router-dom";
-
+import axios from 'axios';
+import Banner from '../parts/banners';
 export function HomePage() {
-    const getUserInfo = async () => {
-        const response = await fetch('/api/user');
-        const data = await response.json();
-        console.log(data);
-    }
+    const [banners, setBanners] = useState([]);
+    const [user, setUser] = useState([]);
 
     useEffect(() => {
         getUserInfo();
+        getBanners();
     }, []);
 
-    
+    const getUserInfo = async () => {
+        try {
+          const response = await axios.get('https://e5j14.wiremockapi.cloud/user-info');
+          console.log(response.data);
+          setUser(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
-    const [value, setValue] = React.useState(0);
+    const getBanners = async () => {
+        try {
+          const response = await axios.get('https://e5j14.wiremockapi.cloud/banners');
+          setBanners(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
     return (
         <Box sx={{backgroundColor:'#F6F6F6'}}>
-
-            <Box sx={{p:3}}>
-                <div style={{marginBottom:'10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center'}}>
-                    <img src='images/logo.png' style={{ height: '64px' }}/>
-                    <div style={{marginLeft: '10px'}}>
-                        สุขภาพใจของเธอให้  <span style={{color: '#461E99'}}>SynZ</span> ดูแลนะ
-                    </div>
+            <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
+                <img src='images/logo.png' style={{ height: '64px' }} />
+                <div style={{ marginLeft: '10px' }}>
+                    สุขภาพใจของ กฟผ. ให้  <span style={{ color: '#461E99', fontWeight: 800 }}>SynZ</span> ดูแลนะ
                 </div>
-
-                <Splide
-                    options={ {
-                        type   : 'loop',
-                        gap   : '0.5rem',
-                        arrows:false,
-                        padding: '8%',
-                        focus:'center'
-                    } }
-
-                >
-                    <SplideSlide>
-                        <img src="/images/banner1.png" className='imgslide'  alt="Image 1"/>
-                    </SplideSlide>
-                    <SplideSlide>
-                        <img src="/images/banner3.png" className='imgslide'  alt="Image 1"/>
-                    </SplideSlide>
-
-                    <SplideSlide>
-                        <img src="/images/banner1.png" className='imgslide'  alt="Image 1"/>
-                    </SplideSlide>
-                    <SplideSlide>
-                        <img src="/images/banner3.png" className='imgslide'  alt="Image 1"/>
-                    </SplideSlide>
-
-                </Splide>
-
-            </Box>
+            </div>
+            <Banner data={banners}/>
 
             <Box sx={{p:3}}>
                 <div className='ts2' style={{marginBottom:'20px'}}>

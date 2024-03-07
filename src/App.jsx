@@ -12,7 +12,7 @@ import { HistoryPage } from 'components/pages/history';
 import { AccountPage } from 'components/pages/account';
 import { QuestionPage } from 'components/pages/question';
 import { LoadPage } from 'components/pages/load';
-
+import { UpdatePage } from 'components/pages/update';
 import { LayoutBottomNav } from 'components/layouts/bottomnav';
 
 import {
@@ -38,6 +38,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/appointment/:expertID" element={<AppointmentPage />} />
         <Route path="/question" element={<QuestionPage />} />
+        <Route path="/update" element={<UpdatePage />} />
 
         <Route path="/" element={<LayoutBottomNav />}>
           <Route path="/home" element={<HomePage />} />

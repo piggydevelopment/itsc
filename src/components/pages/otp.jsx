@@ -8,10 +8,16 @@ import TextField from '@mui/material/TextField';
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import Typography from '@mui/material/Typography';
 import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
+import {
+  BrowserRouter as Router,
+  useNavigate,
+  useLocation
+} from "react-router-dom";
+export function OtpPage() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const data = location.state;
 
-export function OtpPage(props) {
-
-    const [userEmail] = props;
 
     const [otp, setOtp] = React.useState('')
 
@@ -26,7 +32,7 @@ export function OtpPage(props) {
     const handleSubmit = e => {
       e.preventDefault();
       console.log(otp)
-      
+      navigate('/home');
     };
     
 
@@ -52,7 +58,7 @@ export function OtpPage(props) {
             <div style={{marginBottom:'40px'}}>
                 <Typography variant="h4" className='NotoSansThai text-center fw-600' style={{marginBottom:"10px"}} >ใส่รหัสยืนยัน</Typography>
                 <div  className='text-center'>กรุณาใส่รหัสยืนยันที่ถูกส่งไปยังอีเมล</div>
-                <div  className='text-center'>1xxxxx@egat.co.th</div>
+                <div  className='text-center'>{data.userEmail}</div>
             </div>
             <div style={{marginBottom:'50px'}}>
                 <MuiOtpInput 

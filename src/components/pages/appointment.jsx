@@ -39,7 +39,7 @@ export function AppointmentPage() {
                     color="inherit"
                     aria-label="menu"
                     sx={{ mr: 2,position:"absolute" }}
-                    component={Link} to="/"
+                    component={Link} to="/home"
                     >
                     <ArrowBackIosNewOutlinedIcon />
                     </IconButton>
