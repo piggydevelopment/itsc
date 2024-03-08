@@ -14,7 +14,7 @@ import { QuestionPage } from 'components/pages/question';
 import { LoadPage } from 'components/pages/load';
 import { UpdatePage } from 'components/pages/update';
 import { LayoutBottomNav } from 'components/layouts/bottomnav';
-
+import { InstallPWA } from 'components/parts/install-pwa';
 import {
   BrowserRouter as Router,
   Routes,
@@ -62,6 +62,7 @@ function Layout() {
 
     <div className="wrapper">
       <div id="content">
+        <InstallPWA/>
         <Outlet />
       </div>
     </div>

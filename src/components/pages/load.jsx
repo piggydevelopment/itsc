@@ -33,13 +33,13 @@ export function LoadPage() {
           flexDirection:'column',
           justifyContent:'center',
           alignItems:'center',
-          background:"#461E99"
+          background:"#F4F3FE"
         }}
       >
         <Box
           component="img"
           sx={{
-            width: '90%',
+            width: '50%',
             textAlign:'center',
           }}
           src="/images/logo3.png"

@@ -39,7 +39,8 @@ export function LoginPage() {
       <Box
         component="form"
         sx={{
-          height:'100vh'
+          height:'100vh',
+          textAlign:'center',
         }}
         noValidate
         autoComplete="off"
@@ -49,12 +50,12 @@ export function LoginPage() {
         <Box
           component="img"
           sx={{
-            width: '90%',
-            textAlign:'center',
-            mt:'15%',
-            mb:'1%'
+            width: '45%',
+            mt:'30%',
+            mb:'10%',
+            mx: 'auto'
           }}
-          src="/images/logo.png"
+          src="/images/logo3.png"
         />
         <Stack sx={{mx:3}} spacing={5}>
           
@@ -84,7 +85,7 @@ export function LoginPage() {
               }}
             >ถัดไป <ArrowForwardOutlinedIcon sx={{ml:2}} />  </Button>
           
-        
+            <div style={{fontSize: '12px'}}>&copy; Copyright @ 2024 by NSD Neuron Co.,Ltd.</div>
         </Stack>
       </Box>
     );

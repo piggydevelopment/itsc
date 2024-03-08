@@ -22,7 +22,7 @@ export function LayoutBottomNav() {
 
             <Outlet />
 
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 ,maxWidth:'567px',m:'0 auto' }} elevation={3}>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 ,maxWidth:'567px',m:'0 auto', zIndex: 100 }} elevation={3}>
                 <BottomNavigation
                     showLabels
                     value={value}

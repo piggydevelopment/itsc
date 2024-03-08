@@ -24,10 +24,12 @@ import {
     Outlet,
     useParams 
   } from "react-router-dom";
+import dayjs from 'dayjs';
 
 export function AppointmentPage() {
 
-
+    const [bookingTime, setBookingTime] = React.useState(dayjs());
+    const [bookingDate, setBookingDate] = React.useState(dayjs());
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     
     return (
@@ -174,12 +176,21 @@ export function AppointmentPage() {
                     
                     <Box p={4} >
                         <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                            <DateCalendar />
+                            <DateCalendar sx={{
+                                width:'100%',
+                                mb:1
+                            }}
+                            
+                            value={bookingDate}
+                            onChange={(bookingDate) => setBookingDate(bookingDate)}
+                            />
                         </LocalizationProvider>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['TimePicker']}>
-                                <TimePicker label="เวลา" sx={{width:'100%'}} />
-                            </DemoContainer>
+                            <Box components={['TimePicker']}>
+                                <TimePicker label="เวลา" sx={{width:'100%'}} 
+                                value={bookingTime}
+                                onChange={(bookingTime) => setBookingTime(bookingTime)}/>
+                            </Box>
                         </LocalizationProvider>
                         <Box pt={4}>
                             <Button 

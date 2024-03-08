@@ -32,7 +32,7 @@ export function OtpPage() {
     const handleSubmit = e => {
       e.preventDefault();
       console.log(otp)
-      navigate('/home');
+      navigate('/terms');
     };
     
 
