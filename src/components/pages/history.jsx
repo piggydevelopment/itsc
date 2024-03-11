@@ -87,7 +87,7 @@ export function HistoryPage() {
                             />
                             <div>
                                 <Typography className='NotoSansThai' mb={1} component="div" sx={{ fontWeight: 600, fontSize: 16, color: '#2C2C2C' }}>
-                                    {booking.prefix}+{booking.firstname} {booking.lastname}
+                                    {booking.prefix}{booking.firstname} {booking.lastname}
                                 </Typography>
                                 <Typography className='NotoSansThai' mb={1} component="div" sx={{ fontSize: 13, color: "#656565" }}>
                                     {booking.type_name}
