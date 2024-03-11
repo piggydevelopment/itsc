@@ -21,6 +21,7 @@ import {
 import { ReactSession } from 'react-client-session';
 import axios from 'axios';
 import { apiUrl } from '../../configs/app';
+import Chat from './chat';
 export function AccountPage() {
     const [area, setArea] = useState('');
     const [department, setDepartment] = useState('');
@@ -71,7 +72,7 @@ export function AccountPage() {
     };
     return (
         <Box sx={{ backgroundColor: '#FFF', paddingBottom: '80px', height: '100vh' }}>
-
+            <Chat/>
             <Box
                 component="form"
                 noValidate

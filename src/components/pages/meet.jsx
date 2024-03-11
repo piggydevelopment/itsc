@@ -41,7 +41,7 @@ export function MeetPage() {
     };
     return (
         <Box component="form">
-            <div style={{ position: 'fixed', top: 10, right: 10, zIndex: 100 }}>
+            {/* <div style={{ position: 'fixed', bottom: 85, right: 10, zIndex: 100 }}>
                 <Button variant="contained"
                 onClick={exitHandler}
                 style={{
@@ -49,7 +49,7 @@ export function MeetPage() {
                     borderRadius: 50, 
                     color: '#4a148c'
                 }}>ปิดหน้าต่าง</Button>
-            </div>
+            </div> */}
             <JitsiMeeting
                 domain={domain}
                 roomName={room}
@@ -64,7 +64,7 @@ export function MeetPage() {
                     // here you can attach custom event listeners to the Jitsi Meet External API
                     // you can also store it locally to execute commands
                 }}
-                
+                onReadyToClose = {() => navigate('/question', {state: location.state})}
                 getIFrameRef={(iframeRef) => { 
                     iframeRef.style.height = '100vh'; 
                     iframeRef.style.margin = 0; 

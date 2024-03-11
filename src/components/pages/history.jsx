@@ -18,7 +18,7 @@ import { ReactSession } from 'react-client-session';
 import Loading from '../parts/loading';
 import axios from 'axios';
 import { apiUrl } from '../../configs/app';
-
+import Chat from './chat';
 export function HistoryPage() {
     const [user, setUser] = useState(ReactSession.get('user'));
     const [booking, setBooking] = React.useState([]);
@@ -48,6 +48,7 @@ export function HistoryPage() {
     return (
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
             {loading ? <Loading /> : null}
+            <Chat/>
             <AppBar position="relative" sx={{ backgroundColor: '#FFF', color: '#000', boxShadow: 'unset', paddingTop: '10px' }}>
                 <Toolbar>
                     <Typography className='NotoSansThai' component="div" sx={{ flexGrow: 1, textAlign: 'center', fontWeight: 600, fontSize: 18 }}>

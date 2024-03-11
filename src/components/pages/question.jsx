@@ -124,14 +124,13 @@ export function QuestionPage() {
                         onChangeActive={(event, newHover) => {
                             setHover(newHover);
                         }}
-                        size="large" 
+                        size="large"
+                        
                     />
                 </Stack>
                 {value !== null && (
                     <Box mt={1} sx={{ textAlign:'center',color:'#F3B85D' }}>{labels[hover !== -1 ? hover : value]}</Box>
                 )}
-
-
                 <Box my={3} px={2}>
                     <FormControl>
                         <FormLabel  className='NotoSansThai' >ความพึงพอใจต่อ SynZ Application*</FormLabel>

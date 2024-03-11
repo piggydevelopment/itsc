@@ -25,19 +25,20 @@ export function OtpPage() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const [email, setEmail] = useState(location.state.userEmail);
+  const [email, setEmail] = useState();
   const [otp, setOtp] = useState('')
   const [ref, setRef] = useState('')
   const [isLoading, setIsLoading] = useState(true);
   const [validate, setValidate] = useState(true);
 
   useEffect(() => {
-
+    
+    // !location.state.userEmail ? setEmail(localStorage.getItem('email')) : setEmail(location.state.userEmail);
     if(ref === '') {
       setRef('Loading...')
       requestOTP();
     }
-  });
+  }, [0]);
 
   const handleChange = (newValue) => {
     setOtp(newValue)
@@ -47,7 +48,13 @@ export function OtpPage() {
     await setIsLoading(true);
     await setOtp('');
     await setValidate(true);
-    
+
+    let tempUser = localStorage.getItem('email') || location.state.userEmail
+    if(tempUser === null || tempUser === undefined) {
+      localStorage.setItem('email', email);
+    } else {
+      setEmail(tempUser);
+    }
 
     try {
       let requestOtp = await axios.post(apiUrl + '/api/user-create-otp', {user_email: email})
@@ -174,7 +181,7 @@ export function OtpPage() {
             fontSize: '18px',
             width: '50%',
           }}
-        >ยืนยีน</Button>
+        >ยืนยัน</Button>
 
 
       </Stack>

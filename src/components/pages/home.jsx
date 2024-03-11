@@ -12,7 +12,7 @@ import Banner from '../parts/banners';
 import { apiUrl } from '../../configs/app';
 import { ReactSession } from 'react-client-session';
 import { Specialist } from '../parts/specialist';
-
+import Chat from './chat';
 export function HomePage() {
     const [banners, setBanners] = useState(localStorage.getItem('banners') ? JSON.parse(localStorage.getItem('banners')) : []);
     const [user, setUser] = useState(ReactSession.get('user'));
@@ -24,8 +24,8 @@ export function HomePage() {
     useEffect(() => {
         // console.log('user', user)
         // console.log('banners', banners)
-        isLoading && initialize();
         !user && navigate('/login');
+        isLoading && initialize();
     }, [0]);
 
     const initialize = async () => {
@@ -49,15 +49,6 @@ export function HomePage() {
             }
         }
     }
-
-    // const getUserInfo = async () => {
-    //     try {
-    //         const response = await axios.get(apiUrl + "/api/user/1");
-    //         setUser(response.data.data);
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    // };
 
     const getBanners = async () => {
         try {
@@ -107,6 +98,7 @@ export function HomePage() {
     return (
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
             {isLoading ? <Loading /> : null}
+            <Chat/>
             <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
                 <img src='images/logo.png' style={{ height: '64px' }} />
                 <div style={{ marginLeft: '10px' }}>
