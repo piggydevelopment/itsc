@@ -13,7 +13,7 @@ import { ReactSession } from 'react-client-session';
 
 export function LoginPage() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState("123456@egat.co.th");
+    const [email, setEmail] = useState("");
     const [error, setError] = useState(false);
 
     useEffect(() => {
