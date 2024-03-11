@@ -49,7 +49,7 @@ export function LoginPage() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       const userEmail = email
-      
+      localStorage.setItem('email', userEmail);
       if (validate(userEmail)) {
         navigate('/otp', { state: { userEmail } });
       }

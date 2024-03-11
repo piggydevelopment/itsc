@@ -33,7 +33,6 @@ export function OtpPage() {
 
   useEffect(() => {
     
-    // !location.state.userEmail ? setEmail(localStorage.getItem('email')) : setEmail(location.state.userEmail);
     if(ref === '') {
       setRef('Loading...')
       requestOTP();
@@ -50,14 +49,10 @@ export function OtpPage() {
     await setValidate(true);
 
     let tempUser = localStorage.getItem('email') || location.state.userEmail
-    if(tempUser === null || tempUser === undefined) {
-      localStorage.setItem('email', email);
-    } else {
-      setEmail(tempUser);
-    }
+    setEmail(tempUser);
 
     try {
-      let requestOtp = await axios.post(apiUrl + '/api/user-create-otp', {user_email: email})
+      let requestOtp = await axios.post(apiUrl + '/api/user-create-otp', {user_email: tempUser})
       let newRef = requestOtp.data.data;
       if(requestOtp.data.status === 201) {
         await setRef(newRef.ref_num)
@@ -151,7 +146,7 @@ export function OtpPage() {
             onChange={handleChange}
             onComplete={handleComplete}
           />
-          {!validate? <FormHelperText sx={{color: 'red'}}>รหัสยืนยันไม่ถูกต้อง</FormHelperText> : null}
+          {!validate? <FormHelperText sx={{color: 'red', textAlign: 'center', marginTop: '15px'}}>รหัสยืนยันไม่ถูกต้อง</FormHelperText> : null}
            
         </div>
 
