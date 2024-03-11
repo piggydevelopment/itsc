@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect,Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -15,43 +15,100 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import {
     BrowserRouter as Router,
-    Routes,
-    Route,
     Link,
-    Outlet,
-    useParams 
-  } from "react-router-dom";
+    useParams
+} from "react-router-dom";
 import dayjs from 'dayjs';
+import axios from 'axios';
+import { apiUrl } from '../../configs/app';
+import { ReactSession } from 'react-client-session';
+import { useNavigate } from 'react-router-dom';
 
 export function AppointmentPage() {
+    const [specialistId] = useState(useParams().expertID);
+    const navigate = useNavigate();
 
+    const [user, setUser] = useState(ReactSession.get('user'));
     const [bookingTime, setBookingTime] = React.useState(dayjs());
     const [bookingDate, setBookingDate] = React.useState(dayjs());
     const [isDrawerOpen, setDrawerOpen] = useState(false);
-    
+    const [specialist, setSpecialist] = useState({
+        "id": 0,
+        "prefix": "",
+        "firstname": "",
+        "lastname": "",
+        "nick_name": "",
+        "profile_pic_file_name": "",
+        "education_record": "",
+        "work_history": "",
+        "schedule_appointments": "",
+        "topics_json": []
+    });
+
+    useEffect(() => {
+        getSpecialist();
+    }, [specialistId]);
+    // get api of specialist by id
+    const getSpecialist = async () => {
+        if (!specialistId) return
+        try{
+            let res = await axios.get(apiUrl + '/api/specialist/' + specialistId);
+            let newdata = {
+                "id": res.data.data.id,
+                "prefix": res.data.data.prefix === null ? "" : res.data.data.prefix,
+                "firstname": res.data.data.firstname === null ? "" : res.data.data.firstname,
+                "lastname": res.data.data.lastname === null ? "" : res.data.data.lastname,
+                "nick_name": res.data.data.nick_name === null ? "" : res.data.data.nick_name,
+                "profile_pic_file_name": res.data.data.profile_pic_file_name === null ? "" : res.data.data.profile_pic_file_name,
+                "education_record": res.data.data.education_record === null ? "" : res.data.data.education_record,
+                "work_history": res.data.data.work_history === null ? "" : res.data.data.work_history,
+                "schedule_appointments": res.data.data.schedule_appointments === null ? "" : res.data.data.schedule_appointments,
+                "topics_json": res.data.data.topics_json,
+            }
+            setSpecialist(newdata);
+            console.log(newdata)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(!specialistId) return;
+        const submit_data = {
+            organization_id: 1,
+            user_id: user.id,
+            specialist_id: specialistId,
+            appointment_date: bookingDate.format('YYYY-MM-DD'),
+            appointment_time: bookingTime.format('HH:mm')
+        }
+        let res = await axios.post( apiUrl + '/api/appointment', submit_data );
+        console.log(res.data.data)
+        navigate('/confirm', { booking: { specialistId, bookingDate, bookingTime } });
+    };
+
     return (
-        <Box sx={{backgroundColor:'#F6F6F6'}}>
-            <AppBar position="relative" sx={{backgroundColor:'#FFF',color:'#000',boxShadow:'unset',paddingTop:'10px'}}>
+        <Box sx={{ backgroundColor: '#F6F6F6' }}>
+            <AppBar position="relative" sx={{ backgroundColor: '#FFF', color: '#000', boxShadow: 'unset', paddingTop: '10px' }}>
                 <Toolbar>
                     <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ mr: 2,position:"absolute" }}
-                    component={Link} to="/home"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2, position: "absolute" }}
+                        component={Link} to="/home"
                     >
-                    <ArrowBackIosNewOutlinedIcon />
+                        <ArrowBackIosNewOutlinedIcon />
                     </IconButton>
-                    <Typography  className='NotoSansThai' component="div" sx={{ flexGrow: 1,textAlign:'center',fontWeight:600,fontSize:18 }}>
+                    <Typography className='NotoSansThai' component="div" sx={{ flexGrow: 1, textAlign: 'center', fontWeight: 600, fontSize: 18 }}>
                         รายละเอียดการจอง
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Box sx={{p:4,backgroundColor:'#FFF'}} mb={2} >
-                <Typography  className='NotoSansThai' mb={2} component="div" sx={{ fontWeight:600,fontSize:18 }}>
+            <Box sx={{ p: 4, backgroundColor: '#FFF' }} mb={2} >
+                <Typography className='NotoSansThai' mb={2} component="div" sx={{ fontWeight: 600, fontSize: 18 }}>
                     ผู้เชี่ยวชาญ
                 </Typography>
 
@@ -59,158 +116,135 @@ export function AppointmentPage() {
                 <Stack spacing={2} mb={3} direction="row" alignItems="center">
                     <Avatar
                         alt=""
-                        src="/images/expert1.png"
+                        src={specialist.profile_pic_file_name}
                         sx={{ width: 64, height: 64 }}
                     />
                     <div>
-                        <Typography  className='NotoSansThai' mb={1}  component="div"  sx={{ fontWeight:600,fontSize:16,color:'#2C2C2C' }}>
-                            พญ.สุชาดา นันทพินิจ
+                        <Typography className='NotoSansThai' mb={1} component="div" sx={{ fontWeight: 600, fontSize: 16, color: '#2C2C2C' }}>
+                            {specialist.prefix + specialist.firstname} {specialist.lastname}
                         </Typography>
-                        <Typography  className='NotoSansThai'  component="div"  sx={{ fontSize:13,color:"#656565" }}>
+                        {/* <Typography  className='NotoSansThai'  component="div"  sx={{ fontSize:13,color:"#656565" }}>
                          จิตแพทย์
-                        </Typography>
+                        </Typography> */}
                     </div>
                 </Stack>
-                <Button 
-                    variant="contained"  
+                <Button
+                    variant="contained"
                     type="submit"
                     fullWidth
                     className='NotoSansThai'
-                    sx={{ 
-                        borderRadius: 50 ,
-                        backgroundColor:'#461E99',
-                        padding:'16px 32px',
-                        fontSize:'16px',
+                    sx={{
+                        borderRadius: 50,
+                        backgroundColor: '#461E99',
+                        padding: '16px 32px',
+                        fontSize: '16px',
                     }}
                     onClick={() => setDrawerOpen(true)}
                 >ปรึกษา </Button>
-                
-           
-
             </Box>
 
-            <Box sx={{p:4,backgroundColor:'#FFF'}} mb={2} >
-                <Typography  className='NotoSansThai' mb={2} component="div" sx={{ fontWeight:600,fontSize:18 }}>
+            <Box sx={{ p: 4, backgroundColor: '#FFF' }} mb={2} >
+                <Typography className='NotoSansThai' mb={2} component="div" sx={{ fontWeight: 600, fontSize: 18 }}>
                     ประวัติการศึกษา
                 </Typography>
-                <ul>
-                    <li style={{marginBottom:'15px'}}>2553 แพทย์ประจำบ้าน สาขาจิตเวชศาสตร์   คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล</li>
-                    <li style={{marginBottom:'15px'}}>2556 จิตแพทย์ประจำโรงพยาบาลยันฮี</li>
-                    <li style={{marginBottom:'15px'}}>2558 จิตแพทย์ ประจำศูนย์จิตรักษ์โรงพยาบาลกรุงเทพสำนักงานใหญ่</li>
-                </ul>
-            </Box>
-
-            <Box sx={{p:4,backgroundColor:'#FFF'}} mb={2} >
-                <Typography  className='NotoSansThai' mb={2} component="div" sx={{ fontWeight:600,fontSize:18 }}>
-                ประวัติการทำงาน
+                <Typography>
+                    <ul>
+                    {
+                        specialist.education_record.split('\n').map((item, i) => (
+                            <li key={i}>{item.replace('-', '')}</li>
+                        ))
+                    }
+                    </ul>
                 </Typography>
-                <ul>
-                    <li style={{marginBottom:'15px'}}>เป็นผู้เชี่ยวชาญด้านการประเมินปัญหาเพศสภาพก่อนผ่าตัด แก้ไขอัตลักษณ์ทางเพศ (ผ่าตัดแปลงเพศ)</li>
-                    <li style={{marginBottom:'15px'}}>เป็นวิทยากรอบรมด้านการให้คำปรึกษาในการบำบัดสารเสพติดให้กับบุคคลากรในคลินิกฟ้าใส (คลินิกด้านสุขภาพจิต และสารเสพติด) จากโรงพยาบาลต่าง ๆ ทั่วประเทศ</li>
-                    <li style={{marginBottom:'15px'}}>เป็นวิทยากรรับเชิญไปให้ความรู้แก่สมาคมหญิงไทยในต่างประเทศ</li>
-                    <li style={{marginBottom:'15px'}}>เป็นวิทยากรจัดกิจกรรมส่งเสริมสุขภาพจิต ให้แก่ บริษัทและองค์กรชั้นนำต่าง ๆ อาทิ บริษัทการบินกรุงเทพ (Bangkok Airway) , ปตท., อมตะ , เครือซีเมนต์ไทย , มิชลิน , DHL , กระทรวงยุติธรรม ฯลฯ</li>
-                    <li style={{marginBottom:'15px'}}>เป็นวิทยากรอบรมเรื่องการจัดการภาวะฉุกเฉินทางจิตเวชให้กับโรงพยาบาลในเครือ BDMS ทั่วประเทศ</li>
-                    <li style={{marginBottom:'15px'}}>เป็นที่ปรึกษาให้ความรู้ด้านจิตเวช สำหรับการสร้างละคร และภาพยนต์</li>
-                </ul>
             </Box>
 
-            <Box sx={{px:4,backgroundColor:'#FFF'}} pb={6}  pt={4} >
-                <Typography  className='NotoSansThai' mb={2} component="div" sx={{ fontWeight:600,fontSize:18 }}>
+            <Box sx={{ p: 4, backgroundColor: '#FFF' }} mb={2} >
+                <Typography className='NotoSansThai' mb={2} component="div" sx={{ fontWeight: 600, fontSize: 18 }}>
+                    ประวัติการทำงาน
+                </Typography>
+                <Typography>
+                    <ul>
+                    {
+                        specialist.work_history.split('\n').map((item, i) => (
+                            <li key={i}>{item.replace('-', '')}</li>
+                        ))
+                    }
+                    </ul>
+                </Typography>
+            </Box>
+
+            <Box sx={{ px: 4, backgroundColor: '#FFF' }} pb={6} pt={4} >
+                <Typography className='NotoSansThai' mb={2} component="div" sx={{ fontWeight: 600, fontSize: 18 }}>
                     ตารางเวลาสำหรับนัดหมายล่วงหน้า
                 </Typography>
 
-                <Box mb={2} >
-                    <Typography  className='NotoSansThai'  component="div" sx={{ fontWeight:600,fontSize:18 }}>
-                        อาทิตย์
-                    </Typography>
-                    <Typography  className='NotoSansThai'  component="div">
-                        11:00 - 17:00 น.
-                    </Typography>
-                    <Typography  className='NotoSansThai'  component="div">
-                        18:00 - 21:00 น.
-                    </Typography>
-                </Box>
+                <Typography sx={{ mb: 3 }}>
+                    <ul>
+                        {
+                            specialist.schedule_appointments.split('\n').map((item, i) => (
+                                <div key={i}>{item.replace('-', '')}</div>
+                            ))
+                        }
+                    </ul>
+                </Typography>
 
-                <Box mb={2} >
-                    <Typography  className='NotoSansThai'  component="div" sx={{ fontWeight:600,fontSize:18 }}>
-                        จันทร์
-                    </Typography>
-                    <Typography  className='NotoSansThai'  component="div">
-                        12:00 - 14:00 น.
-                    </Typography>
-                </Box>
-                
-                <Box mb={3} >
-                    <Typography  className='NotoSansThai'  component="div" sx={{ fontWeight:600,fontSize:18 }}>
-                        อังคาร
-                    </Typography>
-                    <Typography  className='NotoSansThai'  component="div">
-                        12:00 - 14:00 น.
-                    </Typography>
-                </Box>
-
-                <Button 
-                    variant="contained"  
+                <Button
+                    variant="contained"
                     type="submit"
                     fullWidth
                     className='NotoSansThai'
-                    sx={{ 
-                        borderRadius: 50 ,
-                        backgroundColor:'#461E99',
-                        padding:'16px 32px',
-                        fontSize:'16px',
+                    sx={{
+                        borderRadius: 50,
+                        backgroundColor: '#461E99',
+                        padding: '16px 32px',
+                        fontSize: '16px',
                     }}
                     onClick={() => setDrawerOpen(true)}
                 >ปรึกษา </Button>
-
             </Box>
-
             <Drawer
-           
-            anchor="bottom"
-            open={isDrawerOpen}
-            onClose={() => setDrawerOpen(false)}
+                anchor="bottom"
+                open={isDrawerOpen}
+                onClose={() => setDrawerOpen(false)}
             >
                 <Box className="bxbot" >
-
-                    
                     <Box p={4} >
-                        <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateCalendar sx={{
-                                width:'100%',
-                                mb:1
+                                width: '100%',
+                                mb: 1
                             }}
-                            
-                            value={bookingDate}
-                            onChange={(bookingDate) => setBookingDate(bookingDate)}
+                                value={bookingDate}
+                                disablePast
+                                onChange={(bookingDate) => setBookingDate(bookingDate)}
                             />
                         </LocalizationProvider>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <Box components={['TimePicker']}>
-                                <TimePicker label="เวลา" sx={{width:'100%'}} 
-                                value={bookingTime}
-                                onChange={(bookingTime) => setBookingTime(bookingTime)}/>
+                                <TimePicker label="เวลา" sx={{ width: '100%' }}
+                                    value={bookingTime}
+                                    onChange={(bookingTime) => setBookingTime(bookingTime)} />
                             </Box>
                         </LocalizationProvider>
                         <Box pt={4}>
-                            <Button 
-                                variant="contained"  
+                            <Button
+                                variant="contained"
                                 type="submit"
+                                onClick={handleSubmit}
                                 fullWidth
                                 className='NotoSansThai'
-                                sx={{ 
-                                    borderRadius: 50 ,
-                                    backgroundColor:'#461E99',
-                                    padding:'14px 32px',
-                                    fontSize:'16px',
+                                sx={{
+                                    borderRadius: 50,
+                                    backgroundColor: '#461E99',
+                                    padding: '14px 32px',
+                                    fontSize: '16px',
                                 }}
-
                             >ยืนยันการนัดหมาย </Button>
                         </Box>
                     </Box>
                 </Box>
             </Drawer>
-    
+
 
         </Box>
     );

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -8,59 +8,66 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { useTheme } from '@mui/material/styles';
-import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import { areas, departments } from '../../configs/app';
 import {
     BrowserRouter as Router,
-    Routes,
-    Route,
-    Link,
-    Outlet,
-    useNavigate,
-    useParams
+    useNavigate
 } from "react-router-dom";
-
+import { ReactSession } from 'react-client-session';
+import axios from 'axios';
+import { apiUrl } from '../../configs/app';
 export function AccountPage() {
+    const [area, setArea] = useState('');
+    const [department, setDepartment] = useState('');
+    const [user, setUser] = useState(ReactSession.get('user'));
     const navigate = useNavigate();
-    const [area, setArea] = React.useState('');
-    const [department, setDepartment] = React.useState('');
-
     const [open, setOpen] = React.useState(false);
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-  
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
 
-    const handleSubmit = e => {
-
-
+    const handleSubmit = async e => {
+        // validate all input is not empty
+        e.preventDefault();
+        try {
+            // update user to server
+            await axios.put(apiUrl + '/api/user/' + user.id, user);
+            await ReactSession.set('user', user);
+            await setOpen(true);
+            setTimeout(() => {
+                navigate('/home')
+            }, 3000);
+        } catch (error) {
+            alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งในภายหลัง')
+        }
     };
 
     const handleChangeArea = (event) => {
-        setArea(event.target.value);
+        setUser({ ...user, attribute_2: event.target.value });
     };
     const handleChangeDepartment = (event) => {
-        setDepartment(event.target.value);
+        setUser({ ...user, attribute_1: event.target.value });
     };
 
-    const handleLogout = () => {
-        navigate('/login');
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+
+    const handleLogout = async () => {
+        if (window.confirm('Are you sure you want to exit?')) {
+            await ReactSession.remove('user');
+            navigate('/login');
+        }
     };
     return (
         <Box sx={{ backgroundColor: '#FFF', paddingBottom: '80px', height: '100vh' }}>
@@ -75,59 +82,77 @@ export function AccountPage() {
 
                 <Stack sx={{ mx: 3 }} spacing={4}>
                     <TextField
-                        id=""
-                        label="ชื่อ*"
+                        label="ชื่อ"
+                        required
                         variant="standard"
-                        value={"วรรณพร"}
+                        value={user.firstname}
+                        defaultValue={user.firstname}
+                        onChange={(e) => setUser({ ...user, firstname: e.target.value })}
                     />
                     <TextField
-                        id=""
-                        label="นามสกุล*"
+                        label="นามสกุล"
+                        required
                         variant="standard"
-                        value={"วงวรางค์"}
+                        value={user.lastname}
+                        defaultValue={user.lastname}
+                        onChange={(e) => setUser({ ...user, lastname: e.target.value })}
                     />
                     <TextField
-                        id=""
-                        label="อีเมล*"
+                        label="อีเมล"
+                        required
                         variant="standard"
-                        value={"sample@gmail.com"}
+                        value={user.email}
+                        defaultValue={user.email}
+                        disabled
                     />
                     <TextField
-                        id=""
-                        label="เบอร์โทร*"
+                        label="เบอร์โทร"
+                        required
                         variant="standard"
-                        value={"+66 123 456 789"}
+                        value={user.phone_number}
+                        defaultValue={user.phone_number}
+                        onChange={(e) => setUser({ ...user, phone_number: e.target.value })}
+                        inputProps={{ maxLength: 10 }}
+                        type="number"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
-
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน *</InputLabel>
+                        <InputLabel id="synz-select-label">สังกัด</InputLabel>
                         <Select
                             labelId="synz-select-label"
-                            id="synz-select-area"
-                            value={area}
-                            label="สถานปที่ฏิบัติงาน *"
+                            id="synz-select-department"
+                            value={user.attribute_1}
+                            label="สังกัด *"
+                            required
                             variant='standard'
-                            onChange={handleChangeArea}
+                            defaultValue={user.attribute_1}
+                            onChange={handleChangeDepartment}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {departments.map((department, index) => (
+                                <MenuItem
+                                    key={index}
+                                    value={department}>{department}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
 
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สังกัด *</InputLabel>
+                        <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน</InputLabel>
                         <Select
                             labelId="synz-select-label"
-                            id="synz-select-department"
-                            value={department}
-                            label="สังกัด *"
+                            id="synz-select-area"
+                            value={user.attribute_2}
+                            defaultValue={user.attribute_2}
+                            label="สถานปที่ฏิบัติงาน *"
                             variant='standard'
-                            onChange={handleChangeDepartment}
+                            required
+                            onChange={handleChangeArea}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {areas.map((area, index) => (
+                                <MenuItem key={index} value={area}>{area}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
 
@@ -142,7 +167,7 @@ export function AccountPage() {
                             padding: '16px 32px',
                             fontSize: '16px',
                         }}
-                    >บันทึกข้อมูล   </Button>
+                    >บันทึกข้อมูล</Button>
 
                     <Stack sx={{ mx: 3 }} spacing={3} direction={'row'}>
                         <Button
@@ -159,7 +184,7 @@ export function AccountPage() {
                                 color: '#656565',
                                 boxShadow: 'unset'
                             }}
-                        >ยกเลิกสมาชิก   </Button>
+                        >ยกเลิกสมาชิก</Button>
                         <Button
                             variant="contained"
                             type="button"
@@ -180,31 +205,28 @@ export function AccountPage() {
                 </Stack>
 
                 <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
-            >
-                <DialogTitle id="responsive-dialog-title">
-                    {"Use Google's location service?"}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Disagree
-                    </Button>
-                    <Button onClick={handleClose} autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="responsive-dialog-title"
+                >
+                    <DialogTitle id="responsive-dialog-title">
+                        {"ต้องการลบบัญชีผู้ใช้หรือไม่?"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            คุณยืนยันที่จะลบบัญชีของคุณ หรือไม่ หากลบแล้วจะไม่สามารถกู้คืนได้อีกต่อไป และอีเมล์ หรือเบอร์โทรศัพท์นี้จะไม่สามารถใช้งานได้อีกต่อไป
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button autoFocus onClick={handleClose}>
+                            ไม่ต้องการลบ
+                        </Button>
+                        <Button onClick={handleClose} autoFocus>
+                            ตกลง
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
-
-            
         </Box>
     );
 }

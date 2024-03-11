@@ -1,24 +1,13 @@
 
-import React, { useState, useEffect, Component } from 'react';
-import Stack from '@mui/material/Stack';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-
-import { MuiOtpInput } from 'mui-one-time-password-input'
 import Typography from '@mui/material/Typography';
-import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import { ReactSession } from 'react-client-session';
 import {
   BrowserRouter as Router,
   Routes,
@@ -28,30 +17,47 @@ import {
   Outlet,
   useParams
 } from "react-router-dom";
-
+import { apiUrl } from '../../configs/app';
+import axios from 'axios';
 
 export function TermsPage() {
   const [is_accept_terms, setIsAcceptTerms] = useState(false);
   const navigate = useNavigate();
+  const [user, setUser] = useState(ReactSession.get('user'))
 
-  const handleSubmit = e => {
+  useEffect(() => {
+    setIsAcceptTerms(false);
+  });
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    setIsAcceptTerms(is_accept_terms, true);
-    navigate('/home', { state: { is_accept_terms } });
+    let newUser = user;
+    newUser = {...user, is_pdpa_accepted: "1"};
+    await setUser(newUser);
+    console.log('new', newUser)
+    // update user to server
+    await ReactSession.set('user', newUser);
+    // axios api to update user
+    let updateInfo = await axios.put(apiUrl + '/api/user/' + user.id, newUser);
+    // get user from api
+    let getUser = await axios.get(apiUrl + '/api/user/' + user.id);
+    // set user
+    // await setUser(getUser.data.data);
+    // navigate to home page
+    navigate('/home');
   };
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <AppBar position="relative" sx={{ backgroundColor: '#FFF', color: '#000', boxShadow: 'unset', paddingTop: '10px' }}>
         <Toolbar>
-
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2, position: "absolute" }}
-            component={Link} to="/"
+            component={Link} to="/login"
           >
             <ArrowBackIosNewOutlinedIcon />
           </IconButton>
@@ -77,35 +83,26 @@ export function TermsPage() {
           ทำความเข้าใจในข้อตกลงและเงื่อนไขการใช้บริการแล้ว คุณยอมรับและตกลงที่จะผูกพันกับข้อตกลงและเงื่อนไขการใช้บริการเหล่านี้
         </div>
       </Box>
-
-      <Accordion sx={{ boxShadow: 'unset' }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1-content"
-          id="panel1-header"
+      <Box sx={{ px: 3, py: 2, height: 'auto' }}>
+        <Link
+          target="_blank"
+          rel="noopener"
+          onClick={ () => window.location.href='https://synz-webbase.nsdneuron.com/terms/' }
         >
-          Term and Condition
-        </AccordionSummary>
-        <AccordionDetails>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </AccordionDetails>
-      </Accordion>
-      <Accordion sx={{ boxShadow: 'unset' }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2-content"
-          id="panel2-header"
+          Term and Conditions
+        </Link>
+      </Box>
+      <Box sx={{ px: 3, py: 2, height: 'auto' }}>
+        <Link
+          target="_blank"
+          rel="noopener"
+          onClick={ () => window.location.href='https://synz-webbase.nsdneuron.com/privacy-policy/' }
         >
-          PDPA
-        </AccordionSummary>
-        <AccordionDetails>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </AccordionDetails>
-      </Accordion>
-
-      <Box 
+          Privacy Policy
+        </Link>
+      </Box>
+      
+      <Box
         component="form"
         sx={{
           height: '10vh',
@@ -129,8 +126,6 @@ export function TermsPage() {
           }}
         >ยอมรับ</Button>
       </Box>
-
-
     </Box>
   );
 }

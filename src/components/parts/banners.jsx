@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+
 export default function Banner(props) {
     let [banners, setbanners] = useState([]);
-
     useEffect(() => {
         setbanners(props.data);
     }, [props.data]);
@@ -26,12 +26,11 @@ export default function Banner(props) {
                         pauseOnFocus: false,
                     },
                 }}
-
             >
                 {
                     banners.map(item => (
                         <SplideSlide key={item.id}>
-                            <img src={item.src} className='imgslide' alt={item.alt} />
+                            <img src={item.pic_file_name} className='imgslide' alt={item.name} />
                         </SplideSlide>
                     ))
                 }

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect,Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -12,33 +12,54 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-
+import { areas, departments } from '../../configs/app';
+import Snackbar from '@mui/material/Snackbar';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import {
     BrowserRouter as Router,
-    Routes,
-    Route,
     Link,
-    Outlet,
-    useParams 
-  } from "react-router-dom";
+    useNavigate
+} from "react-router-dom";
+import { ReactSession } from 'react-client-session';
+import axios from 'axios';
+import { apiUrl } from '../../configs/app';
 
 export function UpdatePage() {
-    const [area, setArea] = React.useState('');
-    const [department, setDepartment] = React.useState('');
+    const [area, setArea] = useState('');
+    const [department, setDepartment] = useState('');
+    const [user, setUser] = useState(ReactSession.get('user'));
+    const navigate = useNavigate();
+    const [open, setOpen] = React.useState(false);
 
-    const handleSubmit = e => {
-
-    
+    const handleSubmit = async e => {
+        // validate all input is not empty
+        e.preventDefault();
+        try {
+            // update user to server
+            await axios.put(apiUrl + '/api/user/' + user.id, user);
+            await ReactSession.set('user', user);
+            await setOpen(true);
+            setTimeout(() => {
+                navigate('/home')
+            }, 3000);
+        } catch (error) {
+            alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งในภายหลัง')
+        }
     };
 
     const handleChangeArea = (event) => {
-        setArea(event.target.value);
+        setUser({...user, attribute_2: event.target.value});
     };
     const handleChangeDepartment = (event) => {
-        setDepartment(event.target.value);
+        setUser({...user, attribute_1: event.target.value});
     };
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+      };
     return (
         <Box sx={{backgroundColor:'#FFF',paddingBottom:'80px'}}>
             <AppBar position="relative" sx={{backgroundColor:'#FFF',color:'#000',boxShadow:'unset',paddingTop:'10px'}}>
@@ -53,7 +74,7 @@ export function UpdatePage() {
                     <ArrowBackIosNewOutlinedIcon />
                     </IconButton>
                     <Typography  className='NotoSansThai' component="div" sx={{ flexGrow: 1,textAlign:'center',fontWeight:600,fontSize:18 }}>
-                        บัญชี
+                        อัพเดทข้อมูลบัญชีผู้ใช้
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -68,59 +89,77 @@ export function UpdatePage() {
 
                 <Stack sx={{mx:3}} spacing={4}>
                     <TextField
-                        id=""
-                        label="ชื่อ*"
+                        label="ชื่อ"
+                        required
                         variant="standard"
-                        defaultValue={"วรรณพร"}
+                        value={user.firstname}
+                        defaultValue={user.firstname}
+                        onChange={(e) => setUser({...user, firstname: e.target.value})}
                     />
                     <TextField
-                        id=""
-                        label="นามสกุล*"
+                        label="นามสกุล"
+                        required
                         variant="standard"
-                        defaultValue={"วงวรางค์"}
+                        value={user.lastname}
+                        defaultValue={user.lastname}
+                        onChange={(e) => setUser({...user, lastname: e.target.value})}
                     />
                     <TextField
-                        id=""
-                        label="อีเมล*"
+                        label="อีเมล"
+                        required
                         variant="standard"
-                        defaultValue={"sample@gmail.com"}
+                        value={user.email}
+                        defaultValue={user.email}
+                        disabled
                     />
                     <TextField
-                        id=""
-                        label="เบอร์โทร*"
+                        label="เบอร์โทร"
+                        required
                         variant="standard"
-                        defaultValue={"0123456789"}
+                        value={user.phone_number}
+                        defaultValue={user.phone_number}
+                        onChange={(e) => setUser({...user, phone_number: e.target.value})}
+                        inputProps={{ maxLength: 10 }}
+                        type="number"
+                        InputLabelProps={{
+                            shrink: true,
+                          }}
                     />
-
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน *</InputLabel>
+                        <InputLabel id="synz-select-label">สังกัด</InputLabel>
                         <Select
                             labelId="synz-select-label"
-                            id="synz-select-area"
-                            value={area}
-                            label="สถานปที่ฏิบัติงาน *"
+                            id="synz-select-department"
+                            value={user.attribute_1}
+                            label="สังกัด *"
+                            required
                             variant='standard'
-                            onChange={handleChangeArea}
+                            defaultValue={user.attribute_1}
+                            onChange={handleChangeDepartment}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {departments.map((department, index) => (
+                                <MenuItem
+                                key={index} 
+                                value={department}>{department}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
 
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สังกัด *</InputLabel>
+                        <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน</InputLabel>
                         <Select
                             labelId="synz-select-label"
-                            id="synz-select-department"
-                            value={department}
-                            label="สังกัด *"
+                            id="synz-select-area"
+                            value={user.attribute_2}
+                            defaultValue={user.attribute_2}
+                            label="สถานปที่ฏิบัติงาน *"
                             variant='standard'
-                            onChange={handleChangeDepartment}
+                            required
+                            onChange={handleChangeArea}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {areas.map((area, index) => (
+                                <MenuItem key={index} value={area}>{area}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
     
@@ -135,9 +174,15 @@ export function UpdatePage() {
                         padding:'16px 32px',
                         fontSize:'16px',
                     }}
-                    >บันทึกข้อมูล   </Button>
+                    >บันทึกข้อมูล</Button>
                 
                 </Stack>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={3000}
+                    onClose={handleClose}
+                    message="บันทึกเสร็จเรียบร้อย"
+                />
             </Box>
 
            

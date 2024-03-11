@@ -3,32 +3,13 @@ import React, { useState, useEffect,Component } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import HomeSharpIcon from '@mui/icons-material/HomeSharp';
-import HistorySharpIcon from '@mui/icons-material/HistorySharp';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import Paper from '@mui/material/Paper';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/react-splide/css';
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
 import Typography from '@mui/material/Typography';
-
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CheckSharpIcon from '@mui/icons-material/CheckSharp';
-import TimerSharpIcon from '@mui/icons-material/TimerSharp';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
-
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -37,18 +18,23 @@ import FormLabel from '@mui/material/FormLabel';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import {
     BrowserRouter as Router,
-    Routes,
-    Route,
     Link,
-    Outlet,
-    useParams 
+    useLocation 
   } from "react-router-dom";
-
+import { ReactSession } from 'react-client-session';
+import axios from 'axios';
+import { apiUrl } from '../../configs/app';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export function QuestionPage() {
-
+    const location = useLocation();
+    const [rating_star, setRatingStar] = React.useState(0);
+    const [rating1, setRating1] = React.useState(0);
+    const [rating2, setRating2] = React.useState(0);
+    const [ratingtext, setRatingtext] = React.useState("");
+    const navigate = useNavigate();
     const labels = {
         0.5: 'ควรปรับปรุง',
         1: 'ควรปรับปรุง',
@@ -67,8 +53,28 @@ export function QuestionPage() {
     }
 
     const [value, setValue] = React.useState(0);
-    const [ratingtext, setRatingtext] = React.useState("");
+    
     const [hover, setHover] = React.useState(-1);
+
+    const handleSubmit = async () => {
+        console.log(rating_star, rating1, rating2, ratingtext)
+        if(rating_star == 0){
+            alert("กรุณาใส่คะแนนประเมิน")
+        }
+        else{
+            let data = {
+                overall_score: rating_star,
+                q1: rating1,
+                q2: rating2,
+                additional_comments: ratingtext,
+                appointment_id: location.state.bookingId
+            }
+            let saveScore = await axios.post(apiUrl + '/api/evaluation', data);
+            localStorage.setItem('current_meet', '');
+            alert("ส่งคะแนนเรียบร้อย")
+            navigate('/home')
+        }
+    }
     
     return (
         <Box sx={{backgroundColor:'#FFF',paddingBottom:'80px'}}>
@@ -79,7 +85,7 @@ export function QuestionPage() {
                     color="inherit"
                     aria-label="menu"
                     sx={{ mr: 2,position:"absolute" }}
-                    component={Link} to="/"
+                    component={Link} to="/home"
                     >
                     <ArrowBackIosNewOutlinedIcon />
                     </IconButton>
@@ -93,16 +99,12 @@ export function QuestionPage() {
 
                     <Stack spacing={2}  direction="row" alignItems="center">
                         <Avatar
-                            alt=""
-                            src="/images/expert1.png"
+                            src={location.state.consultProfile}
                             sx={{ width: 64, height: 64 }}
                         />
                         <div>
                             <Typography  className='NotoSansThai' mb={1}  component="div"  sx={{ fontWeight:600,fontSize:16,color:'#2C2C2C' }}>
-                                พญ.สุชาดา นันทพินิจ
-                            </Typography>
-                            <Typography  className='NotoSansThai'  component="div"  sx={{ fontSize:13,color:"#656565" }}>
-                            จิตแพทย์
+                                {location.state.consult}
                             </Typography>
                         </div>
                     </Stack>
@@ -115,9 +117,9 @@ export function QuestionPage() {
                 <Stack spacing={2}  justifyContent={'center'} direction={'row'}>
                     <Rating
                         name="simple-controlled"
-                        value={value}
+                        value={rating_star}
                         onChange={(event, newValue) => {
-                            setValue(newValue);
+                            setRatingStar(newValue);
                           }}
                         onChangeActive={(event, newHover) => {
                             setHover(newHover);
@@ -137,6 +139,7 @@ export function QuestionPage() {
                             aria-labelledby="demo-radio-buttons-group-label"
                             defaultValue="3"
                             name="satisfactionApp"
+                            onChange={(e) => setRating1(e.target.value)}
                             
                         >
                             <FormControlLabel  value="1" control={<Radio />} label="ควรปรับปรุง" />
@@ -156,6 +159,7 @@ export function QuestionPage() {
                             aria-labelledby="demo-radio-buttons-group-label"
                             defaultValue="3"
                             name="satisfactionService"
+                            onChange={e => setRating2(e.target.value)}
                         >
                             <FormControlLabel value="1" control={<Radio />} label="ควรปรับปรุง" />
                             <FormControlLabel value="2" control={<Radio />} label="พอใช้" />
@@ -170,7 +174,8 @@ export function QuestionPage() {
                     id=""
                     label="ความคิดเห็นเพิ่มเติม"
                     variant="standard"
-                    value={""}
+                    value={ratingtext}
+                    onChange={(e) => setRatingtext(e.target.value)}
                     fullWidth
                     />
                 
@@ -181,7 +186,7 @@ export function QuestionPage() {
                     variant="contained"  
                     className='NotoSansThai'
                     type="submit"
-                    
+                    onClick={handleSubmit}
                     sx={{ 
                         borderRadius: 50 ,
                         backgroundColor:'#461E99',
@@ -196,7 +201,7 @@ export function QuestionPage() {
                             textDecoration:'underline',
                             color:'#461E99',
                         }}
-                        component={Link} to="/"
+                        component={Link} to="/home"
                     >
                          ยังไม่ใช่ตอนนี้
                     </Button>

@@ -119,6 +119,9 @@ line-height: 21.327px; /* 150% */
 .me-2{
   margin-right: 7px;
 }
+.sm-icon {
+  width: 16px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -166,6 +169,11 @@ line-height: 21.327px; /* 150% */
   margin: 0 auto;
   width: 100%;
   
+}
+
+.woot-widget-bubble {
+  bottom: 100px !important;
+  right: 10px !important;
 }
 @keyframes App-logo-spin {
   from {

@@ -1,101 +1,183 @@
 
-import React, { useState, useEffect,Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-// import sendEmail from '../../libs/smtp';
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import Typography from '@mui/material/Typography';
-import RefreshSharpIcon from '@mui/icons-material/RefreshSharp';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import FormHelperText from '@mui/material/FormHelperText';
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import {
   BrowserRouter as Router,
   useNavigate,
-  useLocation
+  useLocation,
+  Link
 } from "react-router-dom";
+import {orgId, apiUrl} from '../../configs/app';
+import axios from 'axios';
+import { ReactSession } from 'react-client-session';
+import Loading from 'components/parts/loading';
+
 export function OtpPage() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const data = location.state;
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const [email, setEmail] = useState(location.state.userEmail);
+  const [otp, setOtp] = useState('')
+  const [ref, setRef] = useState('')
+  const [isLoading, setIsLoading] = useState(true);
+  const [validate, setValidate] = useState(true);
 
+  useEffect(() => {
 
-    const [otp, setOtp] = React.useState('')
-
-    const handleChange = (newValue) => {
-        setOtp(newValue)
+    if(ref === '') {
+      setRef('Loading...')
+      requestOTP();
     }
+  });
 
-    const handleComplete = (finalValue) => {
-        console.log(finalValue)
-    }
+  const handleChange = (newValue) => {
+    setOtp(newValue)
+  }
 
-    const handleSubmit = e => {
-      e.preventDefault();
-      console.log(otp)
-      navigate('/terms');
-    };
+  const requestOTP = async () => {
+    await setIsLoading(true);
+    await setOtp('');
+    await setValidate(true);
     
 
+    try {
+      let requestOtp = await axios.post(apiUrl + '/api/user-create-otp', {user_email: email})
+      let newRef = requestOtp.data.data;
+      if(requestOtp.data.status === 201) {
+        await setRef(newRef.ref_num)
+      }
+    } catch (error) {
+      alert('เกิดข้อผิดพลาด ในการส่ง OTP กรุณาลองใหม่อีกครั้งในภายหลัง')
+    }
+    setIsLoading(false)
+  }
 
-    return (
-      <Box
-        component="form"
-        sx={{
-          height:'100vh',
-          px:3
-        }}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit}
+  const handleComplete = (finalValue) => {
+    // console.log(finalValue)
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      let verifyOtp = await axios.post(apiUrl + '/api/user-verify-otp', {otp_num: otp, ref_num: ref, user_email: email});
+
+      if(verifyOtp.data.status === 200) {
+        await createUser();
+        // navigate('/terms');
+      }
+    } catch (error) {
+      console.error(error);
+      setValidate(false)
+    }
+
+  };
+
+  const createUser = async () => {
+    try {
+      let response = await axios.post(apiUrl + '/api/user', {email: email, organization_id: orgId});
+      response = response.data.data;
+      if(response!=null) {
+        await ReactSession.set("user", response);
+        if(response.is_pdpa_accepted == 1) {
+          // console.log('redirect to home', response);
+          navigate('/home');
+        } else {
+          // console.log('redirect to term', response);
+          navigate('/terms');
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return (
+    
+    <Box
+      component="form"
+      sx={{
+        height: '100vh',
+        px: 3
+      }}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
+      {isLoading && <Loading/>}
+      <AppBar position="relative" sx={{ backgroundColor: '#FFF', color: '#000', boxShadow: 'unset', paddingTop: '10px' }}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2, position: "absolute" }}
+            component={Link} to="/login"
+          >
+            <ArrowBackIosNewOutlinedIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Stack
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ minHeight: '100vh' }}
+        spacing={2}
       >
-        <Stack 
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
-            sx={{ minHeight: '100vh' }} 
-            spacing={2}
-        >   
-            <div style={{marginBottom:'40px'}}>
-                <Typography variant="h4" className='NotoSansThai text-center fw-600' style={{marginBottom:"10px"}} >ใส่รหัสยืนยัน</Typography>
-                <div  className='text-center'>กรุณาใส่รหัสยืนยันที่ถูกส่งไปยังอีเมล</div>
-                <div  className='text-center'>{data.userEmail}</div>
-            </div>
-            <div style={{marginBottom:'50px'}}>
-                <MuiOtpInput 
-                    value={otp} 
-                    onChange={handleChange} 
-                    onComplete={handleComplete}
-                />
-            </div>
+        <div style={{ marginBottom: '40px' }}>
+          <Typography variant="h4" className='NotoSansThai text-center fw-600' style={{ marginBottom: "10px" }} >ใส่รหัสยืนยัน</Typography>
+          <div className='text-center'>กรุณาใส่รหัสยืนยันที่ถูกส่งไปยังอีเมล</div>
+          <div className='text-center'>{email} | Ref: {ref}</div>
+        </div>
+        <div style={{ marginBottom: '50px' }}>
+          <MuiOtpInput
+            value={otp}
+            onChange={handleChange}
+            onComplete={handleComplete}
+          />
+          {!validate? <FormHelperText sx={{color: 'red'}}>รหัสยืนยันไม่ถูกต้อง</FormHelperText> : null}
+           
+        </div>
 
-            <div style={{marginBottom:'30px'}}>
-                <Button variant="text"
-                    className='NotoSansThai'
-                    sx={{ 
-                        fontSize:'18px',
-                        textDecoration:'underline',
-                        color:'#461E99',
-                    }}
-                >
-                    <RefreshSharpIcon sx={{mr:2}} /> ส่งรหัสยืนยันอีกครั้ง
-                </Button>
-            </div>
+        <div style={{ marginBottom: '30px' }}>
+          <Button variant="text"
+            className='NotoSansThai'
+            sx={{
+              fontSize: '18px',
+              textDecoration: 'underline',
+              color: '#461E99',
+            }}
+          >
+            <Link sx={{ mr: 2 }}
+            onClick={requestOTP}
+            > ส่งรหัสยืนยันอีกครั้ง </Link>
+            </Button>
+        </div>
 
-            <Button 
-              variant="contained"  
-              className='NotoSansThai'
-              type="submit"
-              sx={{ 
-                borderRadius: 50 ,
-                backgroundColor:'#461E99',
-                padding:'10px 32px',
-                fontSize:'18px',
-                width:'50%',
-              }}
-            >ยืนยีน</Button>
-          
-        
-        </Stack>
-      </Box>
-    );
+        <Button
+          variant="contained"
+          className='NotoSansThai'
+          type="submit"
+          sx={{
+            borderRadius: 50,
+            backgroundColor: '#461E99',
+            padding: '10px 32px',
+            fontSize: '18px',
+            width: '50%',
+          }}
+        >ยืนยีน</Button>
+
+
+      </Stack>
+    </Box>
+  );
 }
