@@ -39,12 +39,15 @@ export const Specialist = (props) => {
                         <SplideSlide key={item.id}>
                             <Card sx={{ border: 0, boxShadow: 'unset' }}>
                                 <CardActionArea>
-                                    <CardMedia
-                                        component="img"
-                                        className='experimgcard'
-                                        image={item.profile_pic_file_name}
-                                        alt="green iguana"
-                                    />
+                                    <Link to={"/appointment/" + item.id}>
+                                        <CardMedia
+                                            component="img"
+                                            className='experimgcard'
+                                            image={item.profile_pic_file_name}
+                                            alt="green iguana"
+                                        />
+                                    </Link>
+                                    
                                     <CardContent className='cardcontent' sx={{ backgroundColor: '#6565651c' }}>
                                         <Typography gutterBottom textAlign={'center'} className='NotoSansThai ts-1' component="div">
                                             {item.prefix + item.firstname + ' ' + item.lastname}

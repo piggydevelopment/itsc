@@ -25,7 +25,7 @@ import axios from 'axios';
 import { apiUrl } from '../../configs/app';
 import { ReactSession } from 'react-client-session';
 import { useNavigate } from 'react-router-dom';
-import Chat from './chat';
+
 export function AppointmentPage() {
     const [specialistId] = useState(useParams().expertID);
     const navigate = useNavigate();
@@ -89,7 +89,6 @@ export function AppointmentPage() {
 
     return (
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
-            <Chat/>
             <AppBar position="relative" sx={{ backgroundColor: '#FFF', color: '#000', boxShadow: 'unset', paddingTop: '10px' }}>
                 <Toolbar>
                     <IconButton

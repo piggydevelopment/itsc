@@ -12,7 +12,7 @@ import Banner from '../parts/banners';
 import { apiUrl } from '../../configs/app';
 import { ReactSession } from 'react-client-session';
 import { Specialist } from '../parts/specialist';
-import Chat from './chat';
+
 export function HomePage() {
     const [banners, setBanners] = useState(localStorage.getItem('banners') ? JSON.parse(localStorage.getItem('banners')) : []);
     const [user, setUser] = useState(ReactSession.get('user'));
@@ -96,7 +96,6 @@ export function HomePage() {
     return (
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
             {isLoading ? <Loading /> : null}
-            <Chat/>
             <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
                 <img src='images/logo.png' style={{ height: '64px' }} />
                 <div style={{ marginLeft: '10px' }}>

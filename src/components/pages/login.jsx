@@ -10,7 +10,7 @@ import {
   useNavigate 
 } from "react-router-dom";
 import { ReactSession } from 'react-client-session';
-
+import Alert from '@mui/material/Alert';
 export function LoginPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -94,11 +94,13 @@ export function LoginPage() {
             />
             {
               error?
-              <div style={{fontSize: '12px', color: 'red'}}>อีเมลไม่ถูกต้อง
-              เงื่อนไขการใช้บริการ<br/>
-              - ต้องใช้ Email @egat.co.th เท่านั้น<br/>
-              - ต้องใช้รหัสผู้ใช้งานเป็นตัวเลข 6 หลักเท่านั้น ห้ามมีตัวอักษรในรหัสผู้ใช้งาน เช่น 1XXXXX@egat.co.th<br/>
-              - รหัสผู้ใช้งานต้องขึ้นต้นด้วยตัวเลข 1-5 เท่านั้น เช่น 1XXXXX@egat.co.th, 2XXXXX@egat.co.th
+              <div style={{fontSize: '12px', textAlign: 'left'}}>
+                <Alert severity="warning">
+                <b>อีเมลไม่ถูกต้อง เงื่อนไขในการใช้บริการ</b><br/>
+                - ต้องใช้ Email @egat.co.th เท่านั้น<br/>
+                - ต้องใช้รหัสผู้ใช้งานเป็นตัวเลข 6 หลักเท่านั้น ห้ามมีตัวอักษรในรหัสผู้ใช้งาน เช่น 1XXXXX@egat.co.th<br/>
+                - รหัสผู้ใช้งานต้องขึ้นต้นด้วยตัวเลข 1-5 เท่านั้น เช่น 1XXXXX@egat.co.th, 2XXXXX@egat.co.th
+                </Alert>
               </div>
               :null
             }

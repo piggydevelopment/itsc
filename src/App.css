@@ -186,9 +186,16 @@ line-height: 21.327px; /* 150% */
 .woot--bubble-holder {
   opacity: 0.8;
 }
-.MuiButtonBase-root:hover {
-  color: #282c34;
-  background-color: #F3B85D;
+
+.woot--bubble-holder:hover {
+  opacity: 1;
+}
+.secondaryButton:hover {
+  background-color: #909090 !important;
+  color: #fff;
+}
+.MuiButton-colorPrimary:hover {
+  background-color: #7d5bc4;
 }
 
 @media screen and (min-width: 567px) {

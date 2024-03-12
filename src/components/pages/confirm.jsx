@@ -12,14 +12,12 @@ import {
 import ConfrimBanner from '../../assets/images/confirm_banner.png';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-import Chat from './chat';
 export const ConfirmPage = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
   
     return (
         <Box>
-            <Chat/>
             <Stack>
                 <img src={ConfrimBanner} className='imgslide' style={{ width: '80%', margin: '20% auto 5% auto' }} />
                 <Box>

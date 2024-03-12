@@ -18,7 +18,7 @@ import { ReactSession } from 'react-client-session';
 import Loading from '../parts/loading';
 import axios from 'axios';
 import { apiUrl } from '../../configs/app';
-import Chat from './chat';
+
 export function HistoryPage() {
     const [user, setUser] = useState(ReactSession.get('user'));
     const [booking, setBooking] = React.useState([]);
@@ -36,18 +36,9 @@ export function HistoryPage() {
         setLoading(false);
     }
 
-    const handleJoinConference = () => {
-        let conference_data = {
-            room: booking.number,
-            user: user.firstname + " " + user.lastname
-        }
-        navigate('/meet', { state: conference_data });
-    }
-
     return (
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
             {loading ? <Loading /> : null}
-            <Chat/>
             <AppBar position="relative" sx={{ backgroundColor: '#FFF', color: '#000', boxShadow: 'unset', paddingTop: '10px' }}>
                 <Toolbar>
                     <Typography className='NotoSansThai' component="div" sx={{ flexGrow: 1, textAlign: 'center', fontWeight: 600, fontSize: 18 }}>
@@ -94,33 +85,33 @@ export function HistoryPage() {
                                 </Typography>
                                 {
                                     booking.appointment_status_id == 1 ?
-                                        <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#FF7D45' }}>
-                                            <TimerSharpIcon />
-                                            <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
-                                                จอง
-                                            </Typography>
-                                        </Stack>
-                                        : booking.appointment_status_id == 2 ?
-                                            <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#27AE60' }}>
-                                                <EventAvailableIcon />
-                                                <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
-                                                    ยืนยัน
-                                                </Typography>
-                                            </Stack>
-                                            : booking.appointment_status_id == 3 ?
-                                                <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#27AE60' }}>
-                                                    <CheckSharpIcon />
-                                                    <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
-                                                        ใช้บริการแล้ว
-                                                    </Typography>
-                                                </Stack>
-                                                :
-                                                <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#27AE60' }}>
-                                                    <ClearIcon />
-                                                    <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
-                                                        ยกเลิก
-                                                    </Typography>
-                                                </Stack>
+                                    <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#FF7D45' }}>
+                                        <TimerSharpIcon />
+                                        <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
+                                            จอง
+                                        </Typography>
+                                    </Stack>
+                                    : booking.appointment_status_id == 2 ?
+                                        <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#27AE60' }}>
+                                        <EventAvailableIcon />
+                                        <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
+                                            ยืนยัน
+                                        </Typography>
+                                    </Stack>
+                                    : booking.appointment_status_id == 3 ?
+                                    <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#656565' }}>
+                                        <CheckSharpIcon />
+                                        <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
+                                            ใช้บริการแล้ว
+                                        </Typography>
+                                    </Stack>
+                                    :
+                                    <Stack spacing={2} direction="row" alignItems="center" sx={{ color: '#FF0000' }}>
+                                        <ClearIcon />
+                                        <Typography className='NotoSansThai' component="div" sx={{ fontWeight: 600, fontSize: 16, paddingTop: '4px' }}>
+                                            ยกเลิก
+                                        </Typography>
+                                    </Stack>
                                 }
                             </div>
                             {

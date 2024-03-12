@@ -157,9 +157,9 @@ export function OtpPage() {
             value={otp}
             onChange={handleChange}
             TextFieldsProps={{
-              type: 'number',
+              type: 'tel',
+              maxLength: 1,
             }}
-            type="number"
             autoFocus
             validateChar={validateChar}
             onComplete={handleComplete}
