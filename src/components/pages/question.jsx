@@ -153,7 +153,7 @@ export function QuestionPage() {
 
                 <Box my={3} px={2}>
                     <FormControl>
-                        <FormLabel className='NotoSansThai'>ความพึงพอใจต่อการบริการตรวจสุขภาพใจออนไลน์จาก กฟผ.*</FormLabel>
+                        <FormLabel className='NotoSansThai'>ท่านมีความพึงพอใจที่กฟผ.จัดให้มีบริการให้คำปรึกษาสุขภาพใจออนไลน์สำหรับผู้ปฏิบัติงานที่ระดับใด*</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"
                             defaultValue="3"
