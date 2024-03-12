@@ -32,7 +32,6 @@ export const Specialist = (props) => {
                     padding: '20%',
                     focus: 'center'
                 }}
-
             >
                 {
                     data.map((item) => (

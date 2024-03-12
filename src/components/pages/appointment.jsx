@@ -176,7 +176,7 @@ export function AppointmentPage() {
                     ตารางเวลาสำหรับนัดหมายล่วงหน้า
                 </Typography>
 
-                <Typography sx={{ mb: 3 }}>
+                <Typography sx={{ mb: 3 }} className='NotoSansThai'>
                     <ul>
                         {
                             specialist.schedule_appointments.split('\n').map((item, i) => (
@@ -221,6 +221,7 @@ export function AppointmentPage() {
                             <Box components={['TimePicker']}>
                                 <TimePicker label="เวลา" sx={{ width: '100%' }}
                                     value={bookingTime}
+                                    minutesStep={30}
                                     ampm={false}
                                     onChange={(bookingTime) => setBookingTime(bookingTime)} />
                             </Box>
