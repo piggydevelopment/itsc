@@ -157,11 +157,11 @@ export function OtpPage() {
             value={otp}
             onChange={handleChange}
             TextFieldsProps={{
-              type: 'text',
+              type: 'number',
             }}
-            // type="number"
+            type="number"
             autoFocus
-            // validateChar={validateChar}
+            validateChar={validateChar}
             onComplete={handleComplete}
           />
           {!validate? <FormHelperText sx={{color: 'red', textAlign: 'center', marginTop: '15px'}}>รหัสยืนยันไม่ถูกต้อง</FormHelperText> : null}
