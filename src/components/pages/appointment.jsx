@@ -68,7 +68,6 @@ export function AppointmentPage() {
                 "topics_json": res.data.data.topics_json,
             }
             setSpecialist(newdata);
-            console.log(newdata)
         } catch (error) {
             console.error(error);
         }
@@ -85,7 +84,6 @@ export function AppointmentPage() {
             appointment_time: bookingTime.format('HH:mm')
         }
         let res = await axios.post( apiUrl + '/api/appointment', submit_data );
-        console.log(res.data.data)
         navigate('/confirm', { booking: { specialistId, bookingDate, bookingTime } });
     };
 
@@ -224,6 +222,7 @@ export function AppointmentPage() {
                             <Box components={['TimePicker']}>
                                 <TimePicker label="เวลา" sx={{ width: '100%' }}
                                     value={bookingTime}
+                                    ampm={false}
                                     onChange={(bookingTime) => setBookingTime(bookingTime)} />
                             </Box>
                         </LocalizationProvider>
@@ -240,7 +239,7 @@ export function AppointmentPage() {
                                     padding: '14px 32px',
                                     fontSize: '16px',
                                 }}
-                            >ยืนยันการนัดหมาย </Button>
+                            >ยืนยันการนัดหมาย</Button>
                         </Box>
                     </Box>
                 </Box>

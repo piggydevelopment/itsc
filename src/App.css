@@ -183,7 +183,9 @@ line-height: 21.327px; /* 150% */
     transform: rotate(360deg);
   }
 }
-
+.woot--bubble-holder {
+  opacity: 0.8;
+}
 
 @media screen and (min-width: 567px) {
   .css-9emuhu-MuiPaper-root-MuiDrawer-paper{

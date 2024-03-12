@@ -22,8 +22,6 @@ export function HomePage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // console.log('user', user)
-        // console.log('banners', banners)
         !user && navigate('/login');
         isLoading && initialize();
     }, [0]);

@@ -14,6 +14,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { areas, departments } from '../../configs/app';
+import Snackbar from '@mui/material/Snackbar';
 import {
     BrowserRouter as Router,
     useNavigate
@@ -28,6 +29,7 @@ export function AccountPage() {
     const [user, setUser] = useState(ReactSession.get('user'));
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [snackbar, setSnackBar] = React.useState(false);
 
     const handleSubmit = async e => {
         // validate all input is not empty
@@ -36,7 +38,7 @@ export function AccountPage() {
             // update user to server
             await axios.put(apiUrl + '/api/user/' + user.id, user);
             await ReactSession.set('user', user);
-            
+            await setSnackBar(true);
             setTimeout(() => {
                 navigate('/home')
             }, 3000);
@@ -75,7 +77,6 @@ export function AccountPage() {
             <Chat/>
             <Box
                 component="form"
-                noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
                 pt={5}
@@ -84,7 +85,7 @@ export function AccountPage() {
                 <Stack sx={{ mx: 3 }} spacing={4}>
                     <TextField
                         label="ชื่อ"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.firstname}
                         defaultValue={user.firstname}
@@ -92,7 +93,7 @@ export function AccountPage() {
                     />
                     <TextField
                         label="นามสกุล"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.lastname}
                         defaultValue={user.lastname}
@@ -100,7 +101,7 @@ export function AccountPage() {
                     />
                     <TextField
                         label="อีเมล"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.email}
                         defaultValue={user.email}
@@ -108,33 +109,33 @@ export function AccountPage() {
                     />
                     <TextField
                         label="เบอร์โทร"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.phone_number}
                         defaultValue={user.phone_number}
-                        onChange={(e) => setUser({ ...user, phone_number: e.target.value })}
+                        onChange={(e) => setUser({...user, phone_number: e.target.value})}
                         inputProps={{ maxLength: 10 }}
-                        type="number"
+                        type="tel"
                         InputLabelProps={{
                             shrink: true,
-                        }}
+                          }}
                     />
+                    
+
                     <FormControl fullWidth>
                         <InputLabel id="synz-select-label">สังกัด</InputLabel>
                         <Select
                             labelId="synz-select-label"
-                            id="synz-select-department"
-                            value={user.attribute_1}
-                            label="สังกัด *"
-                            required
+                            id="synz-select-area"
+                            value={user.attribute_2}
+                            defaultValue={user.attribute_2}
+                            label="สถานปที่ฏิบัติงาน *"
                             variant='standard'
-                            defaultValue={user.attribute_1}
-                            onChange={handleChangeDepartment}
+                            required={true}
+                            onChange={handleChangeArea}
                         >
-                            {departments.map((department, index) => (
-                                <MenuItem
-                                    key={index}
-                                    value={department}>{department}</MenuItem>
+                            {areas.map((area, index) => (
+                                <MenuItem key={index} value={area}>{area}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -143,16 +144,18 @@ export function AccountPage() {
                         <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน</InputLabel>
                         <Select
                             labelId="synz-select-label"
-                            id="synz-select-area"
-                            value={user.attribute_2}
-                            defaultValue={user.attribute_2}
-                            label="สถานปที่ฏิบัติงาน *"
+                            id="synz-select-department"
+                            value={user.attribute_1}
+                            label="สังกัด *"
+                            required={true}
                             variant='standard'
-                            required
-                            onChange={handleChangeArea}
+                            defaultValue={user.attribute_1}
+                            onChange={handleChangeDepartment}
                         >
-                            {areas.map((area, index) => (
-                                <MenuItem key={index} value={area}>{area}</MenuItem>
+                            {departments.map((department, index) => (
+                                <MenuItem
+                                    key={index}
+                                    value={department}>{department}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -228,6 +231,14 @@ export function AccountPage() {
                     </DialogActions>
                 </Dialog>
             </Box>
+            <Snackbar
+                    open={snackbar}
+                    autoHideDuration={3000}
+                    onClose={() => {
+                        setSnackBar(false);
+                    }}
+                    message="บันทึกเสร็จเรียบร้อย"
+                />
         </Box>
     );
 }

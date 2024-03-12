@@ -4,7 +4,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 
 export default function Banner(props) {
-    let [banners, setbanners] = useState([]);
+    let [banners, setbanners] = useState(props.data);
     useEffect(() => {
         setbanners(props.data);
     }, [props.data]);
@@ -21,9 +21,7 @@ export default function Banner(props) {
                     rewind: true,
                     autoplay: "true",
                     autoScroll: {
-                        speed: 3,
-                        pauseOnHover: true,
-                        pauseOnFocus: false,
+                        speed: 1
                     },
                 }}
             >

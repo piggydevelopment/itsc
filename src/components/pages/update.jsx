@@ -80,7 +80,6 @@ export function UpdatePage() {
 
             <Box
                 component="form"
-                noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
                 pt={5}
@@ -89,7 +88,7 @@ export function UpdatePage() {
                 <Stack sx={{mx:3}} spacing={4}>
                     <TextField
                         label="ชื่อ"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.firstname}
                         defaultValue={user.firstname}
@@ -97,7 +96,7 @@ export function UpdatePage() {
                     />
                     <TextField
                         label="นามสกุล"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.lastname}
                         defaultValue={user.lastname}
@@ -105,7 +104,7 @@ export function UpdatePage() {
                     />
                     <TextField
                         label="อีเมล"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.email}
                         defaultValue={user.email}
@@ -113,36 +112,17 @@ export function UpdatePage() {
                     />
                     <TextField
                         label="เบอร์โทร"
-                        required
+                        required={true}
                         variant="standard"
                         value={user.phone_number}
                         defaultValue={user.phone_number}
                         onChange={(e) => setUser({...user, phone_number: e.target.value})}
                         inputProps={{ maxLength: 10 }}
-                        type="number"
+                        type="tel"
                         InputLabelProps={{
                             shrink: true,
                           }}
                     />
-                    <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สังกัด</InputLabel>
-                        <Select
-                            labelId="synz-select-label"
-                            id="synz-select-department"
-                            value={user.attribute_1}
-                            label="สังกัด *"
-                            required
-                            variant='standard'
-                            defaultValue={user.attribute_1}
-                            onChange={handleChangeDepartment}
-                        >
-                            {departments.map((department, index) => (
-                                <MenuItem
-                                key={index} 
-                                value={department}>{department}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
 
                     <FormControl fullWidth>
                         <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน</InputLabel>
@@ -153,11 +133,31 @@ export function UpdatePage() {
                             defaultValue={user.attribute_2}
                             label="สถานปที่ฏิบัติงาน *"
                             variant='standard'
-                            required
+                            required={true}
                             onChange={handleChangeArea}
                         >
                             {areas.map((area, index) => (
                                 <MenuItem key={index} value={area}>{area}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    <FormControl fullWidth>
+                        <InputLabel id="synz-select-label">สังกัด</InputLabel>
+                        <Select
+                            labelId="synz-select-label"
+                            id="synz-select-department"
+                            value={user.attribute_1}
+                            label="สังกัด *"
+                            required={true}
+                            variant='standard'
+                            defaultValue={user.attribute_1}
+                            onChange={handleChangeDepartment}
+                        >
+                            {departments.map((department, index) => (
+                                <MenuItem
+                                key={index} 
+                                value={department}>{department}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

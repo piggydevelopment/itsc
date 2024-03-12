@@ -10,12 +10,8 @@ import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutl
 import { ReactSession } from 'react-client-session';
 import {
   BrowserRouter as Router,
-  Routes,
   useNavigate,
-  Route,
   Link,
-  Outlet,
-  useParams
 } from "react-router-dom";
 import { apiUrl } from '../../configs/app';
 import axios from 'axios';
@@ -34,7 +30,6 @@ export function TermsPage() {
     let newUser = user;
     newUser = {...user, is_pdpa_accepted: "1"};
     await setUser(newUser);
-    console.log('new', newUser)
     // update user to server
     await ReactSession.set('user', newUser);
     // axios api to update user

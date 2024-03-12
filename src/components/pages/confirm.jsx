@@ -9,7 +9,6 @@ import {
     BrowserRouter as Router,
     useNavigate
 } from "react-router-dom";
-import { ReactSession } from 'react-client-session';
 import ConfrimBanner from '../../assets/images/confirm_banner.png';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';

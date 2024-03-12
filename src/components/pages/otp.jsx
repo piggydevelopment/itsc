@@ -102,6 +102,18 @@ export function OtpPage() {
     }
   }
 
+  const matchIsNumeric = (text) => {
+    // regular expression to check is text is number
+    const re = /^[0-9\b]+$/
+    if (text === '' || re.test(text)) {
+      return true
+    }
+  }
+  
+  const validateChar = (value, index) => {
+    return matchIsNumeric(value)
+  }
+
   return (
     
     <Box
@@ -144,6 +156,12 @@ export function OtpPage() {
           <MuiOtpInput
             value={otp}
             onChange={handleChange}
+            TextFieldsProps={{
+              type: 'text',
+            }}
+            // type="number"
+            autoFocus
+            // validateChar={validateChar}
             onComplete={handleComplete}
           />
           {!validate? <FormHelperText sx={{color: 'red', textAlign: 'center', marginTop: '15px'}}>รหัสยืนยันไม่ถูกต้อง</FormHelperText> : null}

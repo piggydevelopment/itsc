@@ -33,7 +33,6 @@ export function HistoryPage() {
         let getBookingHistoryData = await axios.get(apiUrl + "/api/appointment/" + user.id);
         getBookingHistoryData = getBookingHistoryData.data.data !== undefined ? getBookingHistoryData.data.data : [];
         await setBooking(getBookingHistoryData);
-        console.log(getBookingHistoryData)
         setLoading(false);
     }
 

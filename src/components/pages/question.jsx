@@ -69,7 +69,7 @@ export function QuestionPage() {
                 additional_comments: ratingtext,
                 appointment_id: location.state.bookingId
             }
-            let saveScore = await axios.post(apiUrl + '/api/evaluation', data);
+            await axios.post(apiUrl + '/api/evaluation', data);
             localStorage.setItem('current_meet', '');
             alert("ส่งคะแนนเรียบร้อย")
             navigate('/home')
@@ -193,7 +193,7 @@ export function QuestionPage() {
                         fontSize:'16px',
                     }}
                     >ส่งแบบประเมิน</Button>
-                    <Button variant="text"
+                    {/* <Button variant="text"
                         className='NotoSansThai'
                         sx={{ 
                             fontSize:'16px',
@@ -203,7 +203,7 @@ export function QuestionPage() {
                         component={Link} to="/home"
                     >
                          ยังไม่ใช่ตอนนี้
-                    </Button>
+                    </Button> */}
                 </Stack>
 
 

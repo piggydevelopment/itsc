@@ -86,6 +86,7 @@ export function LoginPage() {
               value={email}
               placeholder='กรอกอีเมล'
               sx={{mb:3}}
+              type="email"
               inputProps={{style: {fontSize: 18} ,type: "email"}}
               onChange={handleChange}
               error={error}
