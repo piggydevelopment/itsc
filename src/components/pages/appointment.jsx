@@ -25,7 +25,7 @@ import axios from 'axios';
 import { apiUrl } from '../../configs/app';
 import { ReactSession } from 'react-client-session';
 import { useNavigate } from 'react-router-dom';
-
+import Loading from '../parts/loading';
 export function AppointmentPage() {
     const [specialistId] = useState(useParams().expertID);
     const navigate = useNavigate();
@@ -34,6 +34,8 @@ export function AppointmentPage() {
     const [bookingTime, setBookingTime] = React.useState(dayjs());
     const [bookingDate, setBookingDate] = React.useState(dayjs());
     const [isDrawerOpen, setDrawerOpen] = useState(false);
+    const [isBookable, setIsBookable] = useState(1);
+    const [loading, setLoading] = React.useState(true);
     const [specialist, setSpecialist] = useState({
         "id": 0,
         "prefix": "",
@@ -66,8 +68,12 @@ export function AppointmentPage() {
                 "work_history": res.data.data.work_history === null ? "" : res.data.data.work_history,
                 "schedule_appointments": res.data.data.schedule_appointments === null ? "" : res.data.data.schedule_appointments,
                 "topics_json": res.data.data.topics_json,
+                "is_active": (!Number(res.data.data.is_active)) ? 1 : 0
             }
+            console.log(newdata)
+            setIsBookable(newdata.is_active);
             setSpecialist(newdata);
+            setLoading(false);
         } catch (error) {
             console.error(error);
         }
@@ -89,6 +95,7 @@ export function AppointmentPage() {
 
     return (
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
+            {loading ? <Loading /> : null}
             <AppBar position="relative" sx={{ backgroundColor: '#FFF', color: '#000', boxShadow: 'unset', paddingTop: '10px' }}>
                 <Toolbar>
                     <IconButton
@@ -137,6 +144,7 @@ export function AppointmentPage() {
                         padding: '16px 32px',
                         fontSize: '16px',
                     }}
+                    disabled={isBookable}
                     onClick={() => setDrawerOpen(true)}
                 >ปรึกษา </Button>
             </Box>
@@ -185,12 +193,13 @@ export function AppointmentPage() {
                         }
                     </ul>
                 </Typography>
-
+                
                 <Button
                     variant="contained"
                     type="submit"
                     fullWidth
                     className='NotoSansThai'
+                    disabled={isBookable}
                     sx={{
                         borderRadius: 50,
                         backgroundColor: '#461E99',
