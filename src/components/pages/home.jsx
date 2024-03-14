@@ -28,17 +28,16 @@ export function HomePage() {
 
     const initialize = async () => {
         let last_update = localStorage.getItem('last_update') || null;
-
+        // check if now is 16.00
+        let now = new Date();
+        let hour = now.getHours();
+        if (hour >= 16) {
+            updateHandle();
+        }
+        
         // check if last_update is older than 1 hour
         if (Date.now() - last_update > 3600000 || last_update === null) {
-            await localStorage.removeItem('banners');
-            await localStorage.removeItem('specialist_1');
-            await localStorage.removeItem('specialist_2');
-            await localStorage.setItem('last_update', Date.now());
-
-            await getBanners();
-            await getSpecialist(1);
-            await getSpecialist(2);
+            await updateHandle()
         } else {
             await getBanners();
             await getSpecialist(1);
@@ -48,6 +47,18 @@ export function HomePage() {
         forceUpdateInfo();
         return
     };
+
+    const updateHandle = async () => {
+        await localStorage.removeItem('banners');
+        await localStorage.removeItem('specialist_1');
+        await localStorage.removeItem('specialist_2');
+        await localStorage.setItem('last_update', Date.now());
+
+        await getBanners();
+        await getSpecialist(1);
+        await getSpecialist(2);
+        return ;
+    }
 
     const forceUpdateInfo = () => {
         if(user) {
