@@ -12,6 +12,8 @@ import Banner from '../parts/banners';
 import { apiUrl } from '../../configs/app';
 import { ReactSession } from 'react-client-session';
 import { Specialist } from '../parts/specialist';
+import CachedIcon from '@mui/icons-material/Cached';
+import IconButton from '@mui/material/IconButton';
 
 export function HomePage() {
     const [banners, setBanners] = useState(localStorage.getItem('banners') ? JSON.parse(localStorage.getItem('banners')) : []);
@@ -49,6 +51,7 @@ export function HomePage() {
     };
 
     const updateHandle = async () => {
+        setIsLoading(true);
         await localStorage.removeItem('banners');
         await localStorage.removeItem('specialist_1');
         await localStorage.removeItem('specialist_2');
@@ -57,6 +60,7 @@ export function HomePage() {
         await getBanners();
         await getSpecialist(1);
         await getSpecialist(2);
+        setIsLoading(false);
         return ;
     }
 
@@ -127,6 +131,14 @@ export function HomePage() {
                 <div style={{ marginLeft: '10px' }}>
                     สุขภาพใจของ กฟผ. ให้  <span style={{ color: '#461E99', fontWeight: 800 }}>SynZ</span> ดูแลนะ
                 </div>
+                <IconButton
+                onClick={updateHandle}
+                sx={{
+                    position: 'absolute',
+                    right: 10
+                }}>
+                    <CachedIcon />
+                </IconButton>
             </div>
             <div style={{ paddingLeft: '20px', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', fontSize: '18px', fontWeight: 600 }}>
                 {(!user.firstname) ? <Link to="/update" style={{ color: 'red', textDecoration: 'none' }}>กรุณาอัปเดทข้อมูล ⚠️</Link> : 'สวัสดี, ' + user.firstname + ' ' + user.lastname}
