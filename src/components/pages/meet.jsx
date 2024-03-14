@@ -12,6 +12,7 @@ export function MeetPage() {
     const [user, setUser] = useState(location.state.user);
     const [domain, setDomain] = useState('meet.nsd.services');
     const [toolbar, setToolbar] = useState({});
+    const [meetinfo, setMeetInfo] = useState({});
 
     useEffect(() => {
         // set toolbars options
@@ -30,6 +31,13 @@ export function MeetPage() {
             startScreenSharing: false,
             enableEmailInStats: false
         });
+        let meet = {
+            id: location.state.room,
+            start_time: Date.now(),
+            end_time: ''
+        }
+        setMeetInfo(meet)
+        localStorage.setItem('meet_' + location.state.room, JSON.stringify(meet));
     }, []);
 
     const exitHandler = () => {
@@ -53,7 +61,18 @@ export function MeetPage() {
             <JitsiMeeting
                 domain={domain}
                 roomName={room}
-                configOverwrite={toolbar}
+                configOverwrite={{
+                    toolbar, 
+                    prejoinConfig: {
+                        enabled: false
+                    },
+                    toolbarConfig: {
+                        alwaysVisible: true
+                    },
+                    deeplinking: {
+                        disabled : true
+                    }
+                }}
                 interfaceConfigOverwrite={{
                     DISABLE_JOIN_LEAVE_NOTIFICATIONS: true
                 }}
@@ -64,7 +83,16 @@ export function MeetPage() {
                     // here you can attach custom event listeners to the Jitsi Meet External API
                     // you can also store it locally to execute commands
                 }}
-                onReadyToClose = {() => navigate('/question', {state: location.state})}
+                onReadyToClose = { async () => {
+                    let meetinfo = await JSON.parse(localStorage.getItem('meet_' + location.state.room));
+                    console.log(meetinfo)
+                    await localStorage.setItem('meet_' + location.state.room, JSON.stringify({
+                        id: location.state.room,
+                        start_time: meetinfo.start_time,
+                        end_time: Date.now()
+                    }));
+                    navigate('/question', {state: location.state})
+                }}
                 getIFrameRef={(iframeRef) => { 
                     iframeRef.style.height = '100vh'; 
                     iframeRef.style.margin = 0; 

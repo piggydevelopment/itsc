@@ -33,6 +33,7 @@ export function QuestionPage() {
     const [rating_star, setRatingStar] = React.useState(0);
     const [rating1, setRating1] = React.useState(0);
     const [rating2, setRating2] = React.useState(0);
+    const [buttonStatus, setButtonStatus] = React.useState(0);
     const [ratingtext, setRatingtext] = React.useState("");
     const navigate = useNavigate();
     const labels = {
@@ -57,22 +58,29 @@ export function QuestionPage() {
     const [hover, setHover] = React.useState(-1);
 
     const handleSubmit = async () => {
-        console.log(rating_star, rating1, rating2, ratingtext)
+        console.log(rating_star, rating1, rating2, ratingtext);
+        
         if(rating_star == 0){
             alert("กรุณาใส่คะแนนประเมิน")
         }
         else{
-            let data = {
-                overall_score: rating_star,
-                q1: rating1,
-                q2: rating2,
-                additional_comments: ratingtext,
-                appointment_id: location.state.bookingId
+            try{
+                setButtonStatus(1);
+                let data = {
+                    overall_score: rating_star,
+                    q1: rating1,
+                    q2: rating2,
+                    additional_comments: ratingtext,
+                    appointment_id: location.state.bookingId
+                }
+                await axios.post(apiUrl + '/api/evaluation', data);
+                localStorage.setItem('current_meet', '');
+                alert("ส่งคะแนนเรียบร้อย")
+                navigate('/home')
+            } catch (error) {
+                console.error(error);
+                setButtonStatus(0);
             }
-            await axios.post(apiUrl + '/api/evaluation', data);
-            localStorage.setItem('current_meet', '');
-            alert("ส่งคะแนนเรียบร้อย")
-            navigate('/home')
         }
     }
     
@@ -185,6 +193,7 @@ export function QuestionPage() {
                     variant="contained"  
                     className='NotoSansThai'
                     type="submit"
+                    disabled={buttonStatus}
                     onClick={handleSubmit}
                     sx={{ 
                         borderRadius: 50 ,
