@@ -27,11 +27,26 @@ export function HomePage() {
     }, [0]);
 
     const initialize = async () => {
-        await getBanners();
-        await getSpecialist(1);
-        await getSpecialist(2);
+        let last_update = localStorage.getItem('last_update') || null;
+
+        // check if last_update is older than 1 hour
+        if (Date.now() - last_update > 3600000 || last_update === null) {
+            await localStorage.removeItem('banners');
+            await localStorage.removeItem('specialist_1');
+            await localStorage.removeItem('specialist_2');
+            await localStorage.setItem('last_update', Date.now());
+
+            await getBanners();
+            await getSpecialist(1);
+            await getSpecialist(2);
+        } else {
+            await getBanners();
+            await getSpecialist(1);
+            await getSpecialist(2);
+        }
         setIsLoading(false);
         forceUpdateInfo();
+        return
     };
 
     const forceUpdateInfo = () => {
@@ -50,8 +65,8 @@ export function HomePage() {
 
     const getBanners = async () => {
         try {
-            let local_banners = await localStorage.getItem('banners')
-            if (local_banners !== null) {
+            let local_banners = await localStorage.getItem('banners') || []
+            if (local_banners.length !== 0) {
                 await setBanners(JSON.parse(local_banners));
                 return
             } else {

@@ -37,6 +37,7 @@ export function UpdatePage() {
             // update user to server
             await axios.put(apiUrl + '/api/user/' + user.id, user);
             await ReactSession.set('user', user);
+            await localStorage.setItem('user', JSON.stringify(user));
             await setOpen(true);
             setTimeout(() => {
                 navigate('/home')

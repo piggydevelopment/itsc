@@ -35,10 +35,10 @@ function App() {
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/confirm" element={<ConfirmPage />} />
-        <Route path="/meet" element={<MeetPage />} />
         <Route path="/appointment/:expertID" element={<AppointmentPage />} />
         <Route path="/question" element={<QuestionPage />} />
         <Route path="/update" element={<UpdatePage />} />
+        <Route path="/meet" element={<MeetPage />} />
         /** *** Layout bottom */
         <Route path="/" element={<LayoutBottomNav />}>
           <Route path="/home" element={<HomePage />} />

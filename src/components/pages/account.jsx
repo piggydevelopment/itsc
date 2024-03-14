@@ -38,6 +38,7 @@ export function AccountPage() {
             // update user to server
             await axios.put(apiUrl + '/api/user/' + user.id, user);
             await ReactSession.set('user', user);
+            await localStorage.setItem('user', JSON.stringify(user));
             await setSnackBar(true);
             setTimeout(() => {
                 navigate('/home')
@@ -69,6 +70,14 @@ export function AccountPage() {
     const handleLogout = async () => {
         if (window.confirm('Are you sure you want to exit?')) {
             await ReactSession.remove('user');
+            await localStorage.removeItem('user');
+            await localStorage.removeItem('specialist_type_1')
+            await localStorage.removeItem('specialist_type_2')
+            await localStorage.removeItem('banners')
+            await localStorage.removeItem('email')
+            await localStorage.removeItem('ref')
+            await localStorage.removeItem('last_update')
+            
             navigate('/login');
         }
     };
@@ -128,7 +137,7 @@ export function AccountPage() {
                             id="synz-select-area"
                             value={user.attribute_2}
                             defaultValue={user.attribute_2}
-                            label="สถานปที่ฏิบัติงาน *"
+                            label="สังกัด *"
                             variant='standard'
                             required={true}
                             onChange={handleChangeArea}
@@ -145,7 +154,7 @@ export function AccountPage() {
                             labelId="synz-select-label"
                             id="synz-select-department"
                             value={user.attribute_1}
-                            label="สังกัด *"
+                            label="สถานปที่ฏิบัติงาน *"
                             required={true}
                             variant='standard'
                             defaultValue={user.attribute_1}

@@ -50,12 +50,21 @@ export function OtpPage() {
 
     let tempUser = localStorage.getItem('email') || location.state.userEmail
     setEmail(tempUser);
+    
+    let Ref = localStorage.getItem('ref') || '';
+    if(Ref !== '') {
+      await setRef(Ref)
+      setIsLoading(false)
+      return
+    }
+
 
     try {
       let requestOtp = await axios.post(apiUrl + '/api/user-create-otp', {user_email: tempUser})
       let newRef = requestOtp.data.data;
       if(requestOtp.data.status === 201) {
         await setRef(newRef.ref_num)
+        await localStorage.setItem('ref', newRef.ref_num)
       }
     } catch (error) {
       alert('เกิดข้อผิดพลาด ในการส่ง OTP กรุณาลองใหม่อีกครั้งในภายหลัง')
@@ -73,6 +82,7 @@ export function OtpPage() {
       let verifyOtp = await axios.post(apiUrl + '/api/user-verify-otp', {otp_num: otp, ref_num: ref, user_email: email});
 
       if(verifyOtp.data.status === 200) {
+        await localStorage.removeItem('ref')
         await createUser();
         // navigate('/terms');
       }
