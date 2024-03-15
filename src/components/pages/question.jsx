@@ -88,15 +88,6 @@ export function QuestionPage() {
         <Box sx={{backgroundColor:'#FFF',paddingBottom:'80px'}}>
             <AppBar position="relative" sx={{backgroundColor:'#FFF',color:'#000',boxShadow:'unset',paddingTop:'10px'}}>
                 <Toolbar>
-                    <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ mr: 2,position:"absolute" }}
-                    component={Link} to="/home"
-                    >
-                    <ArrowBackIosNewOutlinedIcon />
-                    </IconButton>
                     <Typography  className='NotoSansThai' component="div" sx={{ flexGrow: 1,textAlign:'center',fontWeight:600,fontSize:18 }}>
                     เสร็จสิ้นการใช้บริการ
                     </Typography>
