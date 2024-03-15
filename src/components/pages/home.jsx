@@ -64,7 +64,21 @@ export function HomePage() {
         return ;
     }
 
-    const forceUpdateInfo = () => {
+    const forceUpdateInfo = async () => {
+        if(Number(user.is_active) === 0 || user.is_active === 0) {
+            alert('บัญชีของคุณถูกระงับ กรุณาติดต่อผู้ดูแลระบบ');
+            await ReactSession.remove('user');
+            await localStorage.removeItem('user');
+            await localStorage.removeItem('specialist_type_1')
+            await localStorage.removeItem('specialist_type_2')
+            await localStorage.removeItem('banners')
+            await localStorage.removeItem('email')
+            await localStorage.removeItem('ref')
+            await localStorage.removeItem('last_update')
+            
+            navigate('/login');
+        }
+        
         if(user) {
             if(
                 user.attribute_1 === null ||

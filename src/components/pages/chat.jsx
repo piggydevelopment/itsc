@@ -39,7 +39,6 @@ export default function Chat (props) {
             productName: "Mobile number",
             productCategory: "+66"+user.phone_number,
           });
-  
         
       }
     })(document, "script");

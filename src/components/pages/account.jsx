@@ -122,7 +122,7 @@ export function AccountPage() {
                         value={user.phone_number}
                         defaultValue={user.phone_number}
                         onChange={(e) => setUser({...user, phone_number: e.target.value})}
-                        inputProps={{ maxLength: 10 }}
+                        inputProps={{ maxLength: 10, pattern: "[0-9]{10}" }}
                         type="tel"
                         InputLabelProps={{
                             shrink: true,
