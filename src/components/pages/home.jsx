@@ -53,8 +53,8 @@ export function HomePage() {
     const updateHandle = async () => {
         setIsLoading(true);
         await localStorage.removeItem('banners');
-        await localStorage.removeItem('specialist_1');
-        await localStorage.removeItem('specialist_2');
+        await localStorage.removeItem('specialist_type_1');
+        await localStorage.removeItem('specialist_type_2');
         await localStorage.setItem('last_update', Date.now());
 
         await getBanners();
@@ -78,7 +78,7 @@ export function HomePage() {
             
             navigate('/login');
         }
-        
+
         if(user) {
             if(
                 user.attribute_1 === null ||
