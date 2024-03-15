@@ -10,7 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import { areas, departments } from '../../configs/app';
 import Snackbar from '@mui/material/Snackbar';
@@ -64,15 +63,6 @@ export function UpdatePage() {
         <Box sx={{backgroundColor:'#FFF',paddingBottom:'80px'}}>
             <AppBar position="relative" sx={{backgroundColor:'#FFF',color:'#000',boxShadow:'unset',paddingTop:'10px'}}>
                 <Toolbar>
-                    <IconButton
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ mr: 2,position:"absolute" }}
-                    component={Link} to="/home"
-                    >
-                    <ArrowBackIosNewOutlinedIcon />
-                    </IconButton>
                     <Typography  className='NotoSansThai' component="div" sx={{ flexGrow: 1,textAlign:'center',fontWeight:600,fontSize:18 }}>
                         อัพเดทข้อมูลบัญชีผู้ใช้
                     </Typography>

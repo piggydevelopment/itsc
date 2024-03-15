@@ -114,7 +114,18 @@ export function HistoryPage() {
                                     </Stack>
                                 }
                             </div>
+
                             {
+                                // add condition show this button only when appointment_date && appointment_time is before 1 hour
+
+                                booking.appointment_status_id == 1 && new Date(booking.appointment_date + ' ' + booking.appointment_time) > new Date() + 60 * 60 * 1000 ?
+                                console.log('yes', new Date(booking.appointment_date + ' ' + booking.appointment_time), new Date() + 60 * 60 * 1000)
+                                :
+                                console.log('no', new Date(booking.appointment_date + ' ' + booking.appointment_time), new Date() + 60 * 60 * 1000)
+                            }
+
+                            {
+                                
                                 booking.appointment_status_id == 2 ?
                                     <Stack spacing={2} direction="row" alignItems="center" sx={{ flex: 1, justifyContent: 'flex-end', }}>
                                         <Button

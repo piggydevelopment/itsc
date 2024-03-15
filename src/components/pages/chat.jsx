@@ -11,7 +11,7 @@ export default function Chat (props) {
       position: "right", 
       locale: "th", 
       type: "expanded_bubble",
-      launcherTitle: "คุยกับ Synz",
+      launcherTitle: "ให้ Synz ช่วยเลือกให้ไหม?",
     };
       
     (function(d,t) {

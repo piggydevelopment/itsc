@@ -158,17 +158,17 @@ export function HomePage() {
                 {(!user.firstname) ? <Link to="/update" style={{ color: 'red', textDecoration: 'none' }}>กรุณาอัปเดทข้อมูล ⚠️</Link> : 'สวัสดี, ' + user.firstname + ' ' + user.lastname}
 
             </div>
-
             
             {
                 (banners.length > 0) ? <Banner data={banners} /> : null
             }
             {
-                (specialist_psych.length > 0) ? <Specialist type={'จิตแพทย์'} data={specialist_psych} /> : null
-            }
-            {
                 (specialist_consult.length > 0) ? <Specialist type={'นักจิตวิทยา'} data={specialist_consult} /> : null
             }
+            {
+                (specialist_psych.length > 0) ? <Specialist type={'จิตแพทย์'} data={specialist_psych} /> : null
+            }
+            
         </Box>
     );
 }

@@ -24,8 +24,6 @@ import axios from 'axios';
 import { apiUrl } from '../../configs/app';
 
 export function AccountPage() {
-    const [area, setArea] = useState('');
-    const [department, setDepartment] = useState('');
     const [user, setUser] = useState(ReactSession.get('user'));
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
@@ -82,7 +80,7 @@ export function AccountPage() {
         }
     };
     return (
-        <Box sx={{ backgroundColor: '#FFF', paddingBottom: '80px', height: '100vh' }}>
+        <Box sx={{ backgroundColor: '#FFF', paddingBottom: '80px' }}>
             <Box
                 component="form"
                 autoComplete="off"
@@ -129,11 +127,10 @@ export function AccountPage() {
                           }}
                     />
                     
-
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สังกัด</InputLabel>
+                        <InputLabel id="synz-select-area">สังกัด</InputLabel>
                         <Select
-                            labelId="synz-select-label"
+                            labelId="synz-select-area"
                             id="synz-select-area"
                             value={user.attribute_2}
                             defaultValue={user.attribute_2}
@@ -149,9 +146,9 @@ export function AccountPage() {
                     </FormControl>
 
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน</InputLabel>
+                        <InputLabel id="synz-select-department">สถานปที่ฏิบัติงาน</InputLabel>
                         <Select
-                            labelId="synz-select-label"
+                            labelId="synz-select-department"
                             id="synz-select-department"
                             value={user.attribute_1}
                             label="สถานปที่ฏิบัติงาน *"
