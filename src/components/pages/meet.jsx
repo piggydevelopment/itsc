@@ -29,21 +29,17 @@ export function MeetPage() {
     const [meet_info, setMeetInfo] = useState({});
 
     useEffect(() => {
-        // set toolbars options
-        if(localStorage.getItem('meet_' + location.state.room) !== null) {
-            let meet = JSON.parse(localStorage.getItem('meet_' + location.state.room));
-            setMeetInfo(meet)
-        } else {
-            let meet = {
-                user_id: user.id,
-                appointment_number: location.state.room,
-                start_datetime: Date.now(),
-                end_datetime: ''
-            }
-            
-            setMeetInfo(meet)
-            localStorage.setItem('meet_' + location.state.room, JSON.stringify(meet));
+        // set meet info
+        let meet = {
+            user_id: user.id,
+            appointment_number: location.state.room,
+            start_datetime: Date.now(),
+            end_datetime: ''
         }
+        
+        setMeetInfo(meet)
+        localStorage.setItem('meet_' + location.state.room, JSON.stringify(meet));
+
         setRoom(location.state.room)
 
     }, []);
@@ -58,7 +54,7 @@ export function MeetPage() {
 
         await setMeetInfo(data);
         await localStorage.setItem('meet_' + location.state.room, '' );
-        await axios.post(apiUrl + '/api/appointment/meetingroom/time', data);
+        //await axios.post(apiUrl + '/api/appointment/meetingroom/time', data);
 
         navigate('/question', {state: location.state})
     };

@@ -60,7 +60,7 @@ export function QuestionPage() {
     const handleSubmit = async () => {
         console.log(rating_star, rating1, rating2, ratingtext);
         
-        if(rating_star == 0){
+        if(rating_star == 0||rating1 == 0||rating2 == 0){
             alert("กรุณาใส่คะแนนประเมิน")
         }
         else{
@@ -144,7 +144,8 @@ export function QuestionPage() {
                         <FormLabel  className='NotoSansThai' >ความพึงพอใจต่อ SynZ Application*</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="3"
+                            defaultValue="0"
+                            required={1}
                             name="satisfactionApp"
                             onChange={(e) => setRating1(e.target.value)}
                             
@@ -164,7 +165,8 @@ export function QuestionPage() {
                         <FormLabel className='NotoSansThai'>ท่านมีความพึงพอใจที่กฟผ.จัดให้มีบริการให้คำปรึกษาสุขภาพใจออนไลน์สำหรับผู้ปฏิบัติงานที่ระดับใด*</FormLabel>
                         <RadioGroup
                             aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="3"
+                            defaultValue="0"
+                            required={1}
                             name="satisfactionService"
                             onChange={e => setRating2(e.target.value)}
                         >
