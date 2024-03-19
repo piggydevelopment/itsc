@@ -57,7 +57,8 @@ export const Specialist = (props) => {
                                         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                                             {item.topics_json.map((topic) => (
                                                 <div className='tag' key={topic.id}> <img src={topic.icon_file_name} className='me-2 sm-icon' /> {topic.name}</div>
-                                            ))}
+                                                ))
+                                            }
                                         </div>
                                         <Button
                                             variant="contained"

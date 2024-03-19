@@ -38,8 +38,8 @@ export function HomePage() {
         }
         
         // check if last_update is older than 1 hour
+        await updateHandle()
         if (Date.now() - last_update > 3600000 || last_update === null) {
-            await updateHandle()
         } else {
             await getBanners();
             await getSpecialist(1);
