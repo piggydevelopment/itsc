@@ -210,6 +210,15 @@ export function AccountPage() {
                             onClick={handleLogout}
                         >ออกจากระบบ   </Button>
                     </Stack>
+                    <Button
+                        variant="text"
+                        type="link"
+                        fullWidth
+                        color="info"
+                        size="large"
+                        className='NotoSansThai'
+                        href="tel:0949244997"
+                    >Call center 094-924-4997</Button>
 
                 </Stack>
 
@@ -227,10 +236,10 @@ export function AccountPage() {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button autoFocus onClick={handleClose}>
+                        <Button autoFocus onClick={handleClose} color="secondary">
                             ไม่ต้องการลบ
                         </Button>
-                        <Button onClick={handleClose} autoFocus>
+                        <Button onClick={handleClose} autoFocus color="error">
                             ตกลง
                         </Button>
                     </DialogActions>

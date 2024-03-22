@@ -10,8 +10,8 @@ import { CardActionArea } from '@mui/material';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
-
 import '@splidejs/react-splide/css';
+import '../../assets/css/base.css';
 
 
 export const Specialist = (props) => {
