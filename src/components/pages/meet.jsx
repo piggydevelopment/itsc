@@ -11,7 +11,7 @@ export function MeetPage() {
 
     const [room, setRoom] = useState(location.state.room) || "synzroom";
     const [user, setUser] = useState(location.state.user);
-    const [domain, setDomain] = useState('meet.nsd.services');
+    const [domain, setDomain] = useState('meetsynz.nsd.services');
     const [toolbar, setToolbar] = useState({
         toolbarButtons: [
             'microphone',
