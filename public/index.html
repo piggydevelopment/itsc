@@ -39,9 +39,15 @@
   </div>
   <div id="root"></div>
   <script src="/pwa_install.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S4JWGTQC3B"></script>
   <script>
     if ("serviceWorker" in navigator) { navigator.serviceWorker.register("/service-worker.js"); }
-
+    // Google Tags
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-S4JWGTQC3B');
   </script>
 
 </body>

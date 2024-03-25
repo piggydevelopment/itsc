@@ -2,7 +2,7 @@
 export const mockUrl = 'https://synzegat.wiremockapi.cloud';
 export const apiUrl = 'https://corp-api.synzofficial.com';
 export const apiToken = '';
-export const cs_token = '8JSQ37U5exrLGjSZiDfuPFW1';
+export const cs_token = 'h6UUMULVEDmrLFGzQXhZQrkZ';
 export const cs_url = 'https://cs.synzofficial.com';
 export const areas = [
     'ผวก.',
