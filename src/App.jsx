@@ -23,7 +23,6 @@ import {
 import { ReactSession } from 'react-client-session';
 import { ConfirmPage } from 'components/pages/confirm';
 import { PersonalInformationForm } from 'components/pages/personal-information-form';
-
 function App() {
   ReactSession.setStoreType("localStorage");
 

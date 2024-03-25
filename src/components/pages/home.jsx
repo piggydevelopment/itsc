@@ -14,7 +14,7 @@ import { ReactSession } from 'react-client-session';
 import { Specialist } from '../parts/specialist';
 import CachedIcon from '@mui/icons-material/Cached';
 import IconButton from '@mui/material/IconButton';
-
+import Chat from './chat';
 export function HomePage() {
     const [banners, setBanners] = useState(localStorage.getItem('banners') ? JSON.parse(localStorage.getItem('banners')) : []);
     const [user, setUser] = useState(ReactSession.get('user'));
@@ -47,6 +47,7 @@ export function HomePage() {
         }
         setIsLoading(false);
         forceUpdateInfo();
+
         return
     };
 
@@ -139,6 +140,7 @@ export function HomePage() {
 
     return (
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
+            <Chat/>
             {isLoading ? <Loading /> : null}
             <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
                 <img src='images/logo.png' style={{ height: '64px' }} />

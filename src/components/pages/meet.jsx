@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { JitsiMeeting } from '@jitsi/react-sdk';
 import axios from 'axios';
 import { apiUrl } from '../../configs/app';
+import Chat from './chat';
 
 export function MeetPage() {
     const navigate = useNavigate();
@@ -61,6 +62,7 @@ export function MeetPage() {
 
     return (
         <Box component="form">
+            <Chat disabled={true}/>
             <JitsiMeeting
                 domain={domain}
                 roomName={room}

@@ -22,12 +22,16 @@ import {
 import { ReactSession } from 'react-client-session';
 import axios from 'axios';
 import { apiUrl } from '../../configs/app';
-
+import Chat from './chat';
 export function AccountPage() {
     const [user, setUser] = useState(ReactSession.get('user'));
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [snackbar, setSnackBar] = React.useState(false);
+
+    // useEffect(() => {
+    //     window.$chatwoot.reset();
+    // })
 
     const handleSubmit = async e => {
         // validate all input is not empty
@@ -75,12 +79,14 @@ export function AccountPage() {
             await localStorage.removeItem('email')
             await localStorage.removeItem('ref')
             await localStorage.removeItem('last_update')
-            
+            // await window.$chatwoot.reset();
+            await window.$chatwoot.toggleBubbleVisibility("hide");
             navigate('/login');
         }
     };
     return (
         <Box sx={{ backgroundColor: '#FFF', paddingBottom: '80px' }}>
+            <Chat/>
             <Box
                 component="form"
                 autoComplete="off"

@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { ReactSession } from 'react-client-session';
 import Alert from '@mui/material/Alert';
+import Chat from './chat'
 export function LoginPage() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -67,6 +68,7 @@ export function LoginPage() {
         className='bg-login'
         onSubmit={handleSubmit}
       >
+        <Chat disabled={true}/>
         <Box
           component="img"
           sx={{
