@@ -102,8 +102,7 @@ export function LoginPage() {
               <div style={{fontSize: '12px', textAlign: 'left'}}>
                 <Alert severity="warning">
                 <b>อีเมลไม่ถูกต้อง เงื่อนไขในการใช้บริการ</b><br/>
-                - ต้องใช้ Email Assest Wise เท่านั้น<br/>
-                - ต้องใช้รหัสผู้ใช้งานเป็นตัวเลข 6 หลักเท่านั้น ห้ามมีตัวอักษรในรหัสผู้ใช้งาน<br/>
+                - ต้องใช้ Email Asset Wise เท่านั้น<br/>
                 </Alert>
               </div>
               :null
