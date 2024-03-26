@@ -130,7 +130,7 @@ export function AccountPage() {
                         type="tel"
                         InputLabelProps={{
                             shrink: true,
-                          }}
+                        }}
                     />
                     
                     <FormControl fullWidth>
@@ -165,8 +165,8 @@ export function AccountPage() {
                         >
                             {departments.map((department, index) => (
                                 <MenuItem
-                                    key={index}
-                                    value={department}>{department}</MenuItem>
+                                key={index}
+                                value={department}>{department}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
