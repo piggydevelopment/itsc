@@ -145,7 +145,7 @@ export function HomePage() {
             <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
                 <img src='images/logo.png' style={{ height: '64px' }} />
                 <div style={{ marginLeft: '10px' }}>
-                    สุขภาพใจของ กฟผ. ให้  <span style={{ color: '#461E99', fontWeight: 800 }}>SynZ</span> ดูแลนะ
+                    สุขภาพใจของเธอ ให้  <span style={{ color: '#461E99', fontWeight: 800 }}>SynZ</span> ดูแลนะ
                 </div>
                 <IconButton
                 onClick={updateHandle}
