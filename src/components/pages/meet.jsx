@@ -20,9 +20,8 @@ export function MeetPage() {
             'microphone',
             'camera',
             'fullscreen',
-            'synz-tool',
-            'profile',
-            'raisehand'
+            'raisehand',
+            'hangup'
         ],
         startWithAudioMuted: true,
         disableModeratorIndicator: true,
