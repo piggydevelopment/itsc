@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -29,9 +28,8 @@ import Loading from '../parts/loading';
 export function AppointmentPage() {
     const [specialistId] = useState(useParams().expertID);
     const navigate = useNavigate();
-
     const [user, setUser] = useState(ReactSession.get('user'));
-    const [bookingTime, setBookingTime] = React.useState(dayjs());
+    const [bookingTime, setBookingTime] = React.useState();
     const [bookingDate, setBookingDate] = React.useState(dayjs());
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [isBookable, setIsBookable] = useState(1);
@@ -50,7 +48,13 @@ export function AppointmentPage() {
     });
 
     useEffect(() => {
+
+        if(!user.birthday || user.birthday === '') {
+            navigate('/form', { state: { sid: specialistId } });
+        }
+        
         getSpecialist();
+
     }, [specialistId]);
     // get api of specialist by id
     const getSpecialist = async () => {
@@ -70,7 +74,7 @@ export function AppointmentPage() {
                 "topics_json": res.data.data.topics_json,
                 "is_active": (!Number(res.data.data.is_active)) ? 1 : 0
             }
-            console.log(newdata)
+            
             setIsBookable(newdata.is_active);
             setSpecialist(newdata);
             setLoading(false);
@@ -188,7 +192,7 @@ export function AppointmentPage() {
                     <ul>
                         {
                             specialist.schedule_appointments.split('\n').map((item, i) => (
-                                <div key={i}>{item.replace('-', '')}</div>
+                                <li key={i}>{item.replace('-', '')}</li>
                             ))
                         }
                     </ul>

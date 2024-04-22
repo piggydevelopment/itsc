@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { areas, departments } from '../../configs/app';
 import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
 import {
     BrowserRouter as Router,
     useNavigate
@@ -86,7 +87,7 @@ export function AccountPage() {
     };
     return (
         <Box sx={{ backgroundColor: '#FFF', paddingBottom: '80px' }}>
-            <Chat/>
+            <Chat />
             <Box
                 component="form"
                 autoComplete="off"
@@ -125,14 +126,14 @@ export function AccountPage() {
                         variant="standard"
                         value={user.phone_number}
                         defaultValue={user.phone_number}
-                        onChange={(e) => setUser({...user, phone_number: e.target.value})}
+                        onChange={(e) => setUser({ ...user, phone_number: e.target.value })}
                         inputProps={{ maxLength: 10, pattern: "[0-9]{10}" }}
                         type="tel"
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
-                    
+
                     <FormControl fullWidth>
                         <InputLabel id="synz-select-area">สังกัด</InputLabel>
                         <Select
@@ -165,8 +166,8 @@ export function AccountPage() {
                         >
                             {departments.map((department, index) => (
                                 <MenuItem
-                                key={index}
-                                value={department}>{department}</MenuItem>
+                                    key={index}
+                                    value={department}>{department}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>
@@ -183,6 +184,23 @@ export function AccountPage() {
                             fontSize: '16px',
                         }}
                     >บันทึกข้อมูล</Button>
+                    <Button
+                        variant="contained"
+                        type="button"
+                        onClick={() => {
+                            navigate('/form');
+                        }}
+                        fullWidth
+                        className='NotoSansThai secondaryButton'
+                        sx={{
+                            borderRadius: 50,
+                            backgroundColor: '#F6F6F6',
+                            padding: '16px 32px',
+                            fontSize: '16px',
+                            color: '#656565',
+                            boxShadow: 'unset'
+                        }}
+                    >แก้ไขข้อมูลอื่นๆ</Button>
 
                     <Stack sx={{ mx: 3 }} spacing={3} direction={'row'}>
                         <Button
@@ -214,7 +232,7 @@ export function AccountPage() {
                                 boxShadow: 'unset'
                             }}
                             onClick={handleLogout}
-                        >ออกจากระบบ   </Button>
+                        >ออกจากระบบ</Button>
                     </Stack>
                     <Button
                         variant="text"
@@ -227,6 +245,9 @@ export function AccountPage() {
                     >Call center 094-924-4997</Button>
 
                 </Stack>
+                <Typography className='NotoSansThai' marginTop={3} component="div" sx={{ flexGrow: 1, textAlign: 'center', fontWeight: 400, fontSize: 12 }}>
+                    Version: 1.0.6
+                </Typography>
 
                 <Dialog
                     open={open}
@@ -252,13 +273,13 @@ export function AccountPage() {
                 </Dialog>
             </Box>
             <Snackbar
-                    open={snackbar}
-                    autoHideDuration={3000}
-                    onClose={() => {
-                        setSnackBar(false);
-                    }}
-                    message="บันทึกเสร็จเรียบร้อย"
-                />
+                open={snackbar}
+                autoHideDuration={3000}
+                onClose={() => {
+                    setSnackBar(false);
+                }}
+                message="บันทึกเสร็จเรียบร้อย"
+            />
         </Box>
     );
 }
