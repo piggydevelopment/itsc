@@ -15,15 +15,14 @@ import axios from 'axios';
 
 export function LoginPage() {
     const navigate = useNavigate();
-    const { isAuthenticated, getIdTokenClaims, fetchUserInfo, signIn, signOut } = useLogto();
+    const { isAuthenticated, fetchUserInfo, signIn } = useLogto();
     const [email, setEmail] = useState("");
-    const [userId, setUserId] = useState('');
-    const [error, setError] = useState(false);
 
     useEffect(() => {
       const user = ReactSession.get("user");
+      console.log(user)
         if(user) {
-          navigate('/home')
+          // navigate('/home')
         }
 
         (async () => {
@@ -59,7 +58,6 @@ export function LoginPage() {
   return (
     <Stack sx={{mx:3,height: "100vh", justifyContent: "center", flexDirection: "column"}} spacing={5}>
         <Chat disabled={true}/>
-        {userId && <p>Logged in as {userId}</p>}
         <Box
           component="img"
           sx={{

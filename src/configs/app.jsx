@@ -93,4 +93,4 @@ export const ms_object = '6a82fd26-27d2-4a46-b0a6-e40fcfca6453';
 export const ms_secret_id = '5131e2e2-9b28-45e2-8c3c-3d3d0d178fe3';
 export const ms_secret_value = 'Me08Q~ubF~iUguxPSOFwPZWsMiaF9Xywv4hCebNC';
 export const ms_tenant = '5a144b41-6be6-41d6-bf8e-0cde36f0302a';
-export const ms_redirect_url = base_url + '/ms-callback';
+export const ms_redirect_url = base_url + '/callback';

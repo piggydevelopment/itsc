@@ -21,14 +21,15 @@ import {
 } from "react-router-dom";
 import { ReactSession } from 'react-client-session';
 import axios from 'axios';
-import { apiUrl } from '../../configs/app';
+import { apiUrl, base_url } from '../../configs/app';
+import { useLogto } from '@logto/react';
 import Chat from './chat';
 export function AccountPage() {
     const [user, setUser] = useState(ReactSession.get('user'));
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [snackbar, setSnackBar] = React.useState(false);
-
+    const { signOut } = useLogto();
     // useEffect(() => {
     //     window.$chatwoot.reset();
     // })
@@ -81,7 +82,7 @@ export function AccountPage() {
             await localStorage.removeItem('last_update')
             // await window.$chatwoot.reset();
             await window.$chatwoot.toggleBubbleVisibility("hide");
-            navigate('/login');
+            signOut(base_url+'/login');
         }
     };
     return (
