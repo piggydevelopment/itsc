@@ -13,7 +13,7 @@ import Toolbar from '@mui/material/Toolbar';
 import TextField from '@mui/material/TextField';
 import { areas, departments } from '../../configs/app';
 import Snackbar from '@mui/material/Snackbar';
-import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import Chat from './chat'
 import {
     BrowserRouter as Router,
     Link,
@@ -68,14 +68,14 @@ export function UpdatePage() {
                     </Typography>
                 </Toolbar>
             </AppBar>
-
+            
             <Box
                 component="form"
                 autoComplete="off"
                 onSubmit={handleSubmit}
                 pt={5}
             >
-
+                <Chat disabled={true}/>
                 <Stack sx={{mx:3}} spacing={4}>
                     <TextField
                         label="ชื่อ"
@@ -99,7 +99,7 @@ export function UpdatePage() {
                         variant="standard"
                         value={user.email}
                         defaultValue={user.email}
-                        disabled
+                        onChange={(e) => setUser({...user, email: e.target.value})}
                     />
                     <TextField
                         label="เบอร์โทร"
@@ -116,13 +116,13 @@ export function UpdatePage() {
                     />
 
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สถานปที่ฏิบัติงาน</InputLabel>
+                        <InputLabel id="synz-select-label">บริษัท</InputLabel>
                         <Select
                             labelId="synz-select-label"
                             id="synz-select-area"
                             value={user.attribute_2}
                             defaultValue={user.attribute_2}
-                            label="สถานปที่ฏิบัติงาน *"
+                            label="บริษัท *"
                             variant='standard'
                             required={true}
                             onChange={handleChangeArea}
@@ -134,12 +134,12 @@ export function UpdatePage() {
                     </FormControl>
 
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-label">สังกัด</InputLabel>
+                        <InputLabel id="synz-select-label">แผนก</InputLabel>
                         <Select
                             labelId="synz-select-label"
                             id="synz-select-department"
                             value={user.attribute_1}
-                            label="สังกัด *"
+                            label="แผนก *"
                             required={true}
                             variant='standard'
                             defaultValue={user.attribute_1}

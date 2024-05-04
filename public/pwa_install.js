@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
   } else {
     showResult("❌ This browser is NOT supported");
   }
-  document.querySelector("#install").addEventListener("click", installApp);
+  // document.querySelector("#install").addEventListener("click", installApp);
 });
 
 let deferredPrompt;

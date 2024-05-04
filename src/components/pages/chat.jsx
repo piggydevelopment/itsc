@@ -29,9 +29,9 @@ export default function Chat (props) {
           websiteToken: cs_token,
           baseUrl: BASE_URL
         });
-
-        if(!user||props.disabled) {
-          await window.$chatwoot.toggleBubbleVisibility('hide');
+        
+        if(typeof(user) === undefined||props.disabled) {
+          // await window.$chatwoot.toggleBubbleVisibility('hide');
           return () => {}
         } else {
           await setUser(ReactSession.get('user'));

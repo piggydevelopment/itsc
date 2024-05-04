@@ -4,6 +4,8 @@ import "assets/css/notosansthai.css";
 import "assets/css/kanit.css";
 import Layout from 'components/layouts/main';
 import { LoginPage } from 'components/pages/login';
+import { Callback } from 'components/pages/callback';
+// import { MSLogin } from 'components/pages/ms-login';
 import { OtpPage } from 'components/pages/otp';
 import { TermsPage } from 'components/pages/terms';
 import { HomePage } from 'components/pages/home';
@@ -27,29 +29,39 @@ import { ViewPage } from 'components/pages/view';
 function App() {
   ReactSession.setStoreType("localStorage");
 
+
+  
+  return (
+      <div>
+        <Pages />
+      </div>
+  );
+}
+
+
+function Pages() {
   return (
     <Routes>
-      /** Layout main */
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<LoadPage />} />
         <Route path="/otp" element={<OtpPage />} />
         <Route path="/view" element={<ViewPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/callback" element={<Callback />} />
         <Route path="/confirm" element={<ConfirmPage />} />
         <Route path="/appointment/:expertID" element={<AppointmentPage />} />
         <Route path="/question" element={<QuestionPage />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="/update" element={<UpdatePage />} />
         <Route path="/meet" element={<MeetPage />} />
-        /** *** Layout bottom */
+
         <Route path="/" element={<LayoutBottomNav />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/account" element={<AccountPage />} />
         </Route>
       </Route>
-
     </Routes>
   );
 }
