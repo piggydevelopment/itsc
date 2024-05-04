@@ -10,7 +10,7 @@ import {
 import { ReactSession } from 'react-client-session';
 import Chat from './chat'
 import { useLogto } from '@logto/react';
-import {orgId, apiUrl} from '../../configs/app';
+import {orgId, apiUrl,base_url} from '../../configs/app';
 import axios from 'axios';
 
 export function LoginPage() {
@@ -20,7 +20,6 @@ export function LoginPage() {
 
     useEffect(() => {
       const user = ReactSession.get("user");
-      console.log(user)
         if(user) {
           // navigate('/home')
         }
@@ -79,7 +78,7 @@ export function LoginPage() {
                   padding:'16px 32px',
                   fontSize:'16px',
                 }}
-                onClick={() => signIn('http://localhost:3000/callback')}
+                onClick={() => signIn(base_url+'/callback')}
               >เข้าสู่ระบบ</Button>
         )}
     </Stack>
