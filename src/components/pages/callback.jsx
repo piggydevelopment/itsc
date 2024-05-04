@@ -1,4 +1,3 @@
-import { useHandleSignInCallback } from '@logto/react';
 import {
     BrowserRouter as Router,
     useNavigate 
@@ -6,7 +5,7 @@ import {
 
 export const Callback = () => {
     const navigate = useNavigate();
-    const { isLoading } = useHandleSignInCallback(() => {
+    const { isLoading } = (() => {
     // Navigate to root path when finished
         navigate('/login')
     });

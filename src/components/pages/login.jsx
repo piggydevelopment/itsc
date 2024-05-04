@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import {
   BrowserRouter as Router,
@@ -9,35 +8,41 @@ import {
 } from "react-router-dom";
 import { ReactSession } from 'react-client-session';
 import Chat from './chat'
-import { useLogto } from '@logto/react';
-import {orgId, apiUrl,base_url} from '../../configs/app';
+import {orgID, apiUrl, base_url, supabase_client, supabase_secret } from '../../configs/app';
 import axios from 'axios';
+import { createClient } from '@supabase/supabase-js'
+import { Auth } from '@supabase/auth-ui-react'
+
+const supabase = createClient(supabase_client, supabase_secret);
 
 export function LoginPage() {
     const navigate = useNavigate();
-    const { isAuthenticated, fetchUserInfo, signIn } = useLogto();
-    const [email, setEmail] = useState("");
+    // const { isAuthenticated, fetchUserInfo, signIn } = useState({});
+    const [session, setSession] = useState(null)
 
     useEffect(() => {
-      const user = ReactSession.get("user");
-        if(user) {
-          // navigate('/home')
-        }
+      if(ReactSession.get('user')) {
+        navigate('/home')
+      }
 
-        (async () => {
-          if (isAuthenticated) {
-            const userInfo = await fetchUserInfo();
-            // console.log(userInfo)
-            // setEmail = userInfo.username;
-            await setEmail(userInfo.sub)
-            createUser();
+      supabase.auth.getSession().then(async ({ data: { session } }) => {
+        if(session !== null) {
+          await setSession(session)
+          createUser(session.user.email);
         }
-      })();
-    }, []);
+      })
+      
+      // const {
+      //   data: { subscription },
+      // } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      //   await setSession(session)
+      // })
+      // return () => subscription.unsubscribe()
+    }, [supabase]);
 
-    const createUser = async () => {
+    const createUser = async (email) => {
       try {
-        let response = await axios.post(apiUrl + '/api/user', {email: email, organization_id: orgId});
+        let response = await axios.post(apiUrl + '/api/user', {email: email, organization_id: orgID});
         response = response.data.data;
         if(response!=null) {
           await ReactSession.set("user", response);
@@ -66,20 +71,34 @@ export function LoginPage() {
           }}
           src="/images/logo3.png"
         />
-        {!isAuthenticated && (
-          <Button 
-                variant="contained"  
-                type="submit"
-                fullWidth
-                className='NotoSansThai'
-                sx={{ 
+        {!session ? (
+            <Auth
+            appearance={{
+              theme: "default",
+              extend: false,
+              className: {
+                anchor: 'NotoSansThai'
+              },
+              style: {
+                button: {
                   borderRadius: 50 ,
-                  backgroundColor:'#461E99',
+                  background:'#461E99',
+                  color: '#ffffff',
+                  width: '100%',
                   padding:'16px 32px',
                   fontSize:'16px',
-                }}
-                onClick={() => signIn(base_url+'/callback')}
-              >เข้าสู่ระบบ</Button>
+                  border: 'none'
+                }
+              }
+            }}
+            redirectTo={base_url}
+            supabaseClient={supabase} 
+            onlyThirdPartyProviders={true} 
+            providers={['azure']} />
+        ) : (
+          <Box style={{alignSelf: 'center', textAlign: 'center', width: '100%'}}>
+            Loading...
+          </Box>
         )}
     </Stack>
   );

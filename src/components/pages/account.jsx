@@ -21,19 +21,17 @@ import {
 } from "react-router-dom";
 import { ReactSession } from 'react-client-session';
 import axios from 'axios';
-import { apiUrl, base_url } from '../../configs/app';
-import { useLogto } from '@logto/react';
+import { apiUrl, base_url, supabase_client, supabase_secret } from '../../configs/app';
 import Chat from './chat';
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(supabase_client, supabase_secret);
+
 export function AccountPage() {
     const [user, setUser] = useState(ReactSession.get('user'));
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [snackbar, setSnackBar] = React.useState(false);
-    const { signOut } = useLogto();
-    // useEffect(() => {
-    //     window.$chatwoot.reset();
-    // })
-
     const handleSubmit = async e => {
         // validate all input is not empty
         e.preventDefault();
@@ -80,9 +78,12 @@ export function AccountPage() {
             await localStorage.removeItem('email')
             await localStorage.removeItem('ref')
             await localStorage.removeItem('last_update')
+            await localStorage.removeItem('session')
             // await window.$chatwoot.reset();
             await window.$chatwoot.toggleBubbleVisibility("hide");
-            signOut(base_url+'/login');
+            await supabase.auth.signOut()
+            // signOut(base_url+'/login');
+            navigate('/login')
         }
     };
     return (

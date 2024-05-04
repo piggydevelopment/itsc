@@ -79,18 +79,15 @@ export const departments = [
 ]
 export const psychiatricTreatmentOption = ["ใช่", "ไม่ใช่"]
 export const addicOption = ["แอลกอฮอล์","กาแฟ","บุหรี่"]
-export const orgId = 2;
-// export const MS_AppName = 'SynZ';
-// export const MS_AppID = '9f5f05a7-37e0-4f7b-be23-55173de1946e';
-// export const MS_AppSecret = '179ea5f2-ff9b-4b77-a579-e18b1e0fd212';
-// export const MS_Login = 'https://login.microsoftonline.com/5a144b41-6be6-41d6-bf8e-0cde36f0302a/saml2';
-// export const MS_Identifier = 'https://sts.windows.net/5a144b41-6be6-41d6-bf8e-0cde36f0302a/';
-// export const MS_Logout = 'https://login.microsoftonline.com/5a144b41-6be6-41d6-bf8e-0cde36f0302a/saml2';
 
 export const base_url = window.location.origin;
 export const ms_app_id = '7317cf9a-6311-4999-953d-735d00af832f';
-export const ms_object = '6a82fd26-27d2-4a46-b0a6-e40fcfca6453';
-export const ms_secret_id = '5131e2e2-9b28-45e2-8c3c-3d3d0d178fe3';
+// export const ms_app_id = 'aa6648fd-4879-4bae-a2b9-d6f3be8954d3';
 export const ms_secret_value = 'Me08Q~ubF~iUguxPSOFwPZWsMiaF9Xywv4hCebNC';
+// export const ms_secret_value = 'aaq8Q~qssbEeBjQJle.lvtS1Xur6.fZyrZktQcSZ';
+
 export const ms_tenant = '5a144b41-6be6-41d6-bf8e-0cde36f0302a';
 export const ms_redirect_url = base_url + '/callback';
+
+export const supabase_client = 'https://wdjoxyklmhddvwurqepz.supabase.co';
+export const supabase_secret = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indkam94eWtsbWhkZHZ3dXJxZXB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ4NDQ2MzEsImV4cCI6MjAzMDQyMDYzMX0.cdB--47BeAFelUgUtmAKZtqOG1YDUxaPPW5h3ulQKo4';

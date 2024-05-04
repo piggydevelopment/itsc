@@ -23,8 +23,8 @@ import { ReactSession } from 'react-client-session';
 import axios from 'axios';
 import { apiUrl } from '../../configs/app';
 export function UpdatePage() {
-    const [area, setArea] = useState('');
-    const [department, setDepartment] = useState('');
+    // const [area, setArea] = useState('');
+    // const [department, setDepartment] = useState('');
     const [user, setUser] = useState(ReactSession.get('user'));
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);

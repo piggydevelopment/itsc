@@ -16,7 +16,7 @@ import {
   useLocation,
   Link
 } from "react-router-dom";
-import {orgId, apiUrl} from '../../configs/app';
+import {orgID, apiUrl} from '../../configs/app';
 import axios from 'axios';
 import { ReactSession } from 'react-client-session';
 import Loading from 'components/parts/loading';
@@ -95,7 +95,7 @@ export function OtpPage() {
 
   const createUser = async () => {
     try {
-      let response = await axios.post(apiUrl + '/api/user', {email: email, organization_id: orgId});
+      let response = await axios.post(apiUrl + '/api/user', {email: email, organization_id: orgID});
       response = response.data.data;
       if(response!=null) {
         await ReactSession.set("user", response);
