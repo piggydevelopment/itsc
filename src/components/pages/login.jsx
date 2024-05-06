@@ -81,13 +81,14 @@ export function LoginPage() {
               },
               style: {
                 button: {
-                  borderRadius: 50 ,
-                  background:'#461E99',
-                  color: '#ffffff',
+                  borderRadius: '50px',
+                  background: '#ffffff',
+                  color: 'rgb(70, 30, 153)',
                   width: '100%',
-                  padding:'16px 32px',
-                  fontSize:'16px',
-                  border: 'none',
+                  padding: '16px 32px',
+                  fontSize: '16px',
+                  border: '1px solid rgb(201 201 201)',
+                  boxShadow: '3px 3px 4px #0000001c',
                   marginBottom: '10px'
                 }
               }
