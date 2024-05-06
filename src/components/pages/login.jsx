@@ -74,8 +74,8 @@ export function LoginPage() {
         {!session ? (
             <Auth
             appearance={{
-              theme: "default",
-              extend: false,
+              theme: "ThemeSupa",
+              extend: true,
               className: {
                 anchor: 'NotoSansThai'
               },
@@ -87,7 +87,8 @@ export function LoginPage() {
                   width: '100%',
                   padding:'16px 32px',
                   fontSize:'16px',
-                  border: 'none'
+                  border: 'none',
+                  marginBottom: '10px'
                 }
               }
             }}
