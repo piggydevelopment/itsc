@@ -136,13 +136,13 @@ export function AccountPage() {
                     />
 
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-area">สังกัด</InputLabel>
+                        <InputLabel id="synz-select-area">บริษัท *</InputLabel>
                         <Select
                             labelId="synz-select-area"
                             id="synz-select-area"
                             value={user.attribute_2}
                             defaultValue={user.attribute_2}
-                            label="สังกัด *"
+                            label="บริษัท *"
                             variant='standard'
                             required={true}
                             onChange={handleChangeArea}
@@ -154,12 +154,12 @@ export function AccountPage() {
                     </FormControl>
 
                     <FormControl fullWidth>
-                        <InputLabel id="synz-select-department">สถานปที่ฏิบัติงาน</InputLabel>
+                        <InputLabel id="synz-select-department">แผนก *</InputLabel>
                         <Select
                             labelId="synz-select-department"
                             id="synz-select-department"
                             value={user.attribute_1}
-                            label="สถานปที่ฏิบัติงาน *"
+                            label="แผนก *"
                             required={true}
                             variant='standard'
                             defaultValue={user.attribute_1}
