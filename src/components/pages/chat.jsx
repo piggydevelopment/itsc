@@ -10,9 +10,7 @@ export default function Chat (props) {
     window.chatwootSettings = {
       hideMessageBubble: props.disabled || false,
       position: "right", 
-      locale: "th", 
-      type: "expanded_bubble",
-      launcherTitle: "ให้ Synz ช่วยเลือกให้ไหม?",
+      locale: "th",
     };
 
     (function(d,t) {
