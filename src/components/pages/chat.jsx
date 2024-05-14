@@ -41,7 +41,7 @@ export default function Chat (props) {
           email: user.email,
           phone_number: "+66"+user.phone_number,
           country_code: "TH",
-          company_name: "EGAT-"+user.attribute_1+"-"+user.attribute_2
+          company_name: user.attribute_1+"-"+user.attribute_2
         }
 
         await window.$chatwoot.setUser(user.id, user_info);
