@@ -82,8 +82,8 @@ export function HomePage() {
 
         if(user) {
             if(
-                user.attribute_1 === null ||
-                user.attribute_2 === null ||
+                // user.attribute_1 === null ||
+                // user.attribute_2 === null ||
                 user.firstname === null ||
                 user.lastname === null ||
                 user.phone_number === null
@@ -142,8 +142,8 @@ export function HomePage() {
         <Box sx={{ backgroundColor: '#F6F6F6' }}>
             <Chat/>
             {isLoading ? <Loading /> : null}
-            <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center' }}>
-                <img src='images/logo.png' style={{ height: '64px' }} />
+            <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center', paddingLeft:'20px', paddingTop:'10px' }}>
+                <img src='images/ITSC-logo.jpg' style={{ height: '24px' }} />
                 <div style={{ marginLeft: '10px' }}>
                     สุขภาพใจของเธอ ให้  <span style={{ color: '#461E99', fontWeight: 800 }}>SynZ</span> ดูแลนะ
                 </div>

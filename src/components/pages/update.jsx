@@ -3,10 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -115,7 +112,7 @@ export function UpdatePage() {
                           }}
                     />
 
-                    <FormControl fullWidth>
+                    {/* <FormControl fullWidth>
                         <InputLabel id="synz-select-label">บริษัท</InputLabel>
                         <Select
                             labelId="synz-select-label"
@@ -151,7 +148,7 @@ export function UpdatePage() {
                                 value={department}>{department}</MenuItem>
                             ))}
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
     
                     <Button 
                     variant="contained"  

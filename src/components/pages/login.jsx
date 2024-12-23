@@ -1,107 +1,124 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,Component } from 'react';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import {
   BrowserRouter as Router,
   useNavigate 
 } from "react-router-dom";
 import { ReactSession } from 'react-client-session';
-import Chat from './chat'
-import {orgID, apiUrl, base_url, supabase_client, supabase_secret } from '../../configs/app';
-import axios from 'axios';
-import { createClient } from '@supabase/supabase-js'
-import { Auth } from '@supabase/auth-ui-react'
-
-const supabase = createClient(supabase_client, supabase_secret);
-
+import Alert from '@mui/material/Alert';
 export function LoginPage() {
     const navigate = useNavigate();
-    // const { isAuthenticated, fetchUserInfo, signIn } = useState({});
-    const [session, setSession] = useState(null)
+    const [email, setEmail] = useState("");
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-      if(ReactSession.get('user')) {
+      const user = ReactSession.get("user");
+      if(user) {
         navigate('/home')
       }
+    }, []);
 
-      supabase.auth.getSession().then(async ({ data: { session } }) => {
-        if(session !== null) {
-          await setSession(session)
-          createUser(session.user.email);
-        }
-      })
-      
-      // const {
-      //   data: { subscription },
-      // } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      //   await setSession(session)
-      // })
-      // return () => subscription.unsubscribe()
-    }, [supabase]);
+    const handleChange = e => {
+      setEmail(e.target.value);
+      validate(e.target.value)
+    };
 
-    const createUser = async (email) => {
-      try {
-        let response = await axios.post(apiUrl + '/api/user', {email: email, organization_id: orgID});
-        response = response.data.data;
-        if(response!=null) {
-          await ReactSession.set("user", response);
-          if(response.is_pdpa_accepted == 1) {
-            // console.log('redirect to home', response);
-            navigate('/home');
-          } else {
-            // console.log('redirect to term', response);
-            navigate('/terms');
-          }
-        }
-      } catch (error) {
-        console.error(error);
+    /**
+     * Validates the given email value using a specific pattern.
+     *
+     * @param {string} email_value - The email value to be validated
+     * @return {boolean} true if the email value is valid, false otherwise
+     */
+    const validate = (email_value) => {
+      // create email verify regular expression
+      const pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+      if (pattern.test(email_value)) {
+        setError(false);
+        return true
+      } else {
+        setError(true);
+        
+        return false
       }
-    }
+    };
 
-  return (
-    <Stack sx={{mx:3,height: "100vh", justifyContent: "center", flexDirection: "column"}} spacing={5}>
-        <Chat disabled={true}/>
-        <Box
-          component="img"
-          sx={{
-            width: '35%',
-            paddingBottom: '25px',
-            alignSelf: 'center'
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const userEmail = email
+      localStorage.setItem('email', userEmail);
+      if (validate(userEmail)) {
+        navigate('/otp', { state: { userEmail } });
+      }
+    };
+
+    return (
+      <Box
+        component="form"
+        sx={{
+          height:'100vh',
+          textAlign:'center',
+        }}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
+        <img
+          style={{
+            width: '45%',
+            marginTop:'30%',
+            marginBottom:'10%',
+            marginLeft:'auto',
+            marginRight:'auto'
           }}
-          src="/images/logo3.png"
+          alt="ITSC-logo"
+          src="/images/ITSC-logo.jpg"
         />
-        {!session ? (
-            <Auth
-            appearance={{
-              theme: "ThemeSupa",
-              extend: true,
-              className: {
-                anchor: 'NotoSansThai'
-              },
-              style: {
-                button: {
-                  borderRadius: '50px',
-                  background: '#ffffff',
-                  color: 'rgb(70, 30, 153)',
-                  width: '100%',
-                  padding: '16px 32px',
-                  fontSize: '16px',
-                  border: '1px solid rgb(201 201 201)',
-                  boxShadow: '3px 3px 4px #0000001c',
-                  marginBottom: '10px'
-                }
-              }
-            }}
-            redirectTo={base_url}
-            supabaseClient={supabase} 
-            onlyThirdPartyProviders={true} 
-            providers={['azure']} />
-        ) : (
-          <Box style={{alignSelf: 'center', textAlign: 'center', width: '100%'}}>
-            Loading...
-          </Box>
-        )}
-    </Stack>
-  );
+        <Stack sx={{mx:3, px:3}} spacing={5}>
+          
+            <TextField
+              required 
+              id="outlined-controlled"
+              label="กรุณาระบุอีเมลองค์กร"
+              value={email}
+              placeholder='กรอกอีเมล'
+              sx={{mb:3}}
+              type="email"
+              inputProps={{style: {fontSize: 18} ,type: "email"}}
+              onChange={handleChange}
+              error={error}
+ 
+            />
+            {
+              error?
+              <div style={{fontSize: '12px', textAlign: 'left'}}>
+                <Alert severity="warning">
+                <b>อีเมลไม่ถูกต้อง เงื่อนไขในการใช้บริการ</b><br/>
+                ต้องใช้ Email ที่ออกโดยองค์กรที่ทำงานอยู่เท่านั้น<br/>
+                </Alert>
+              </div>
+              :null
+            }
+          
+            <Button 
+              variant="contained"  
+              type="submit"
+              fullWidth
+              className='NotoSansThai'
+              sx={{ 
+                borderRadius: 50 ,
+                backgroundColor:'#461E99',
+                padding:'16px 32px',
+                fontSize:'16px',
+              }}
+            >ถัดไป <ArrowForwardOutlinedIcon sx={{ml:2}} />  </Button>
+          
+            <div style={{fontSize: '12px'}}>&copy; Copyright @ 2024 by NSD Neuron Co.,Ltd.</div>
+        </Stack>
+      </Box>
+    );
 }

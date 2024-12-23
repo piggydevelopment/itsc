@@ -7,12 +7,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import InputLabel from '@mui/material/InputLabel';
+// import Select from '@mui/material/Select';
+// import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import { areas, departments } from '../../configs/app';
+// import { areas, departments } from '../../configs/app';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import {
@@ -49,12 +49,12 @@ export function AccountPage() {
         }
     };
 
-    const handleChangeArea = (event) => {
-        setUser({ ...user, attribute_2: event.target.value });
-    };
-    const handleChangeDepartment = (event) => {
-        setUser({ ...user, attribute_1: event.target.value });
-    };
+    // const handleChangeArea = (event) => {
+    //     setUser({ ...user, attribute_2: event.target.value });
+    // };
+    // const handleChangeDepartment = (event) => {
+    //     setUser({ ...user, attribute_1: event.target.value });
+    // };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -134,7 +134,7 @@ export function AccountPage() {
                             shrink: true,
                         }}
                     />
-
+{/* 
                     <FormControl fullWidth>
                         <InputLabel id="synz-select-area">บริษัท *</InputLabel>
                         <Select
@@ -171,7 +171,7 @@ export function AccountPage() {
                                     value={department}>{department}</MenuItem>
                             ))}
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
 
                     <Button
                         variant="contained"
