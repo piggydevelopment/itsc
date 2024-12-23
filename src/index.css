@@ -11,3 +11,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.logo-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  width: auto;
+  height: 30vh;
+}
+.powered-logo-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.powered-logo{
+  height: 86px;
+}
+.powered-logo-text{
+  font-size: 12px;
+  font-weight: 600;
+  color: #5c5c5c;
+}
+.main-logo-container{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.main-logo{
+  width: 100%;
+}

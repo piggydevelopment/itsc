@@ -67,18 +67,27 @@ export function LoginPage() {
         autoComplete="off"
         onSubmit={handleSubmit}
       >
-        <img
-          style={{
-            width: '45%',
-            marginTop:'30%',
-            marginBottom:'10%',
-            marginLeft:'auto',
-            marginRight:'auto'
-          }}
-          alt="ITSC-logo"
-          src="/images/ITSC-logo.jpg"
-        />
         <Stack sx={{mx:3, px:3}} spacing={5}>
+          <div className='logo-container'>
+            <div className='main-logo-container'>
+              <img
+                className='main-logo'
+                alt="ITSC-logo"
+                src="/images/ITSC-logo.jpg"
+              />
+            </div>
+            <div className='powered-logo-container'>
+              <div className='powered-logo-text'>
+                Powered by
+              </div>
+              <img
+                className='powered-logo'
+                alt="synz-logo"
+                src="/images/logo.png"
+              />
+            </div>
+            
+          </div>
           
             <TextField
               required 
@@ -115,7 +124,7 @@ export function LoginPage() {
                 padding:'16px 32px',
                 fontSize:'16px',
               }}
-            >ถัดไป <ArrowForwardOutlinedIcon sx={{ml:2}} />  </Button>
+            >รับรหัส OPT <ArrowForwardOutlinedIcon sx={{ml:2}} />  </Button>
           
             <div style={{fontSize: '12px'}}>&copy; Copyright @ 2024 by NSD Neuron Co.,Ltd.</div>
         </Stack>
