@@ -34,7 +34,7 @@ export function LoadPage() {
             width: '50%',
             textAlign:'center',
           }}
-          src="/images/logo3.png"
+          src="/images/logo.png"
         />
 
       </Box>
