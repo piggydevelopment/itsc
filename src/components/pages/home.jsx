@@ -143,7 +143,7 @@ export function HomePage() {
             <Chat/>
             {isLoading ? <Loading /> : null}
             <div style={{ marginBottom: '10px', flex: '1', justifyContent: 'flex-start', flexDirection: 'row', display: 'flex', justifyItems: 'center', alignItems: 'center', paddingLeft:'20px', paddingTop:'10px' }}>
-                <img src='images/ITSC-logo.jpg' style={{ height: '24px' }} />
+                <img src='images/ITSC-logo.jpg' style={{ height: '24px' }} alt='ITSC-logo'/>
                 <div style={{ marginLeft: '10px' }}>
                     สุขภาพใจของเธอ ให้  <span style={{ color: '#461E99', fontWeight: 800 }}>SynZ</span> ดูแลนะ
                 </div>
