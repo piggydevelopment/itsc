@@ -14,7 +14,7 @@ export function MeetPage() {
 
     const [room, setRoom] = useState(location.state.room) || "synzroom";
     const user = ReactSession.get('user');
-    const domain = 'meetsynz.nsd.services';
+    const domain = 'meet.synzofficial.com';
     const toolbar = {
         toolbarButtons: [
             'microphone',
